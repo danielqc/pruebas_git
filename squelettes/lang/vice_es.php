@@ -17,7 +17,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'camara_de_diputados' => 'C&aacute;mara de Diputados',
 	'camara_de_senadores' => 'C&aacute;mara de Senadores',
 	'comisiones' => 'Comisiones',
-    'conception_graphique_par' => 'Dise&ntilde;o gr&aacute;fico',
+	'conception_graphique_par' => 'Dise&ntilde;o gr&aacute;fico',
 	'cuando' => 'Cuando?',
 	// D
 	'descargas' => 'Descargas',
@@ -62,6 +62,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'noticias' => 'Noticias',
 	// P
 	'presidencia_asamblea' => 'Presidencia de la Asamblea Legislativa Plurinacional',
+	'prueba' => 'Prueba',
 	'publicaciones' => 'Publicaciones',
 	'publicaciones_de_tipo' => 'Publicaciones de tipo',
 	'publicaciones_del_editorial' => 'Publicaciones del editorial',

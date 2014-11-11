@@ -96,4 +96,8 @@ function format_duration($t)
 	return $str;
 }
 
+function prueba(){
+	echo"mensaje de prueba";
+}
+
 ?>
