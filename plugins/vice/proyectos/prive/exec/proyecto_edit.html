@@ -1,0 +1,24 @@
+#CACHE{0}
+[(#SET{id_proyecto,[(#VAL{id_proyecto}|_request|sinon{new})]})]
+<BOUCLE_si_autorise(CONDITION){si (#AUTORISER{modifier,proyecto,#GET{id_proyecto}})}>
+	[(#SET{retour, #URL_ECRIRE{proyectos}})]
+	<BOUCLE_titre(PROYECTOS){id_proyecto=#GET{id_proyecto}}{tout}>
+		[(#SET{titre, #TITULO})]
+		[(#SET{retour, [(#URL_ECRIRE{proyecto_voir}|parametre_url{id_proyecto,#ID_PROYECTO})]})]
+	</BOUCLE_titre>
+
+	[(#REM) Advertencia si el proyecto fue editado hace menos de una hora por una otra persona]
+	[(#SET{mention, #ID_PROYECTO|mention_qui_edite{'proyecto'}})]
+	[(#SET{nombre_autor, #GET{mention}|table_valeur{nom_auteur_modif}})]
+	[(#SET{minutos, #GET{mention}|table_valeur{date_diff}})]
+	[(#GET{mention}|oui)
+		<:proyectos:aviso_proyecto_modificado{nom_auteur_modif=#GET{nombre_autor}, date_diff=#GET{minutos}}:>
+	]
+
+	[(#INCLURE{fond=prive/editer/proyecto,
+		id_proyecto=#GET{id_proyecto},
+		icone_retour=[(#ENV{retour,#GET{retour}}
+			|icone{<:icone_retour:>, #CHEMIN{images/proyectos-24.png}, #LANG_LEFT })],
+		titre=#GET{titre}
+	})]
+</BOUCLE_si_autorise>

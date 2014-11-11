@@ -1,0 +1,51 @@
+[(#REM) Recuperar los 50 últimos vídeos publicados - los otros son obviados (A MEJORAR)]
+
+#SET{videos, #ARRAY}
+<BOUCLE_youtube(DATA)
+	{source json,'https://www.googleapis.com/youtube/v3/search?key=AIzaSyDsgGMqNdbINsY6JF1MHuMUp0lgjqsB0FI&channelId=UCXkC7ObD_7PCeU_HLwsK5oQ&part=id&order=date&maxResults=50'}
+	{datapath /items}
+	{0,50}
+	>
+	<BOUCLE_youtube_details(DATA)
+		{source json,#VAL{'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDsgGMqNdbINsY6JF1MHuMUp0lgjqsB0FI&part=id,snippet,player,contentDetails,recordingDetails&id='}|concat{#VALEUR{id}|get_object_vars|table_valeur{videoId}}}
+		{datapath /items}
+		{0,1}
+		>
+		#SET{video, #ARRAY{
+			id,#VALEUR{id},
+			titulo,#VALEUR{snippet}|get_object_vars|table_valeur{title},
+			fecha,#VALEUR{recordingDetails}|get_object_vars|table_valeur{recordingDate},
+			duracion,#VALEUR{contentDetails}|get_object_vars|table_valeur{duration},
+		}}
+		#SET{videos, #GET{videos}|push{#GET{video}}}
+	</BOUCLE_youtube_details>
+</BOUCLE_youtube>
+
+[(#REM) Ordenar los vídeos por fecha de grabación]
+#SET{videos_ordenados, #ARRAY}
+
+<B_ordenar_videos>
+<div class="youtube">
+<ul class="lista_youtube">
+<BOUCLE_ordenar_videos(DATA){source table, #GET{videos}}{fecha!=''}{!par fecha}{pagination 10}>
+	[(#FECHA|oui)
+	<li>
+		<h3>#TITULO</h3>
+		<span>
+			[<:vice:fecha_grabacion:> (#FECHA|affdate)
+			][ / <:vice:duracion:> (#DURACION|format_duration)]
+		</span>
+		<div>
+			[(#ID|youtube)]
+		</div>
+	</li>
+	]
+</BOUCLE_ordenar_videos>
+	[
+	<div class='pagination'>
+		(#PAGINATION{page})
+	</div>
+	]
+</ul>
+</div>
+</B_ordenar_videos>

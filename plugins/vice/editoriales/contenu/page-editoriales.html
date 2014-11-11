@@ -1,0 +1,14 @@
+[(#REM) Esqueleto para los editoriales]
+
+<h1><:editoriales:editoriales:></h1>
+<B_editoriales_01>
+<ul>
+<BOUCLE_editoriales_01(EDITORIALES)>
+	<li>
+		[(#REM) Nombre del editorial]
+		<span><a href="[(#URL_PAGE{editorial}|parametre_url{id_editorial,#ID_EDITORIAL})]">#NOMBRE</a></span>
+		<span>, #LUGAR</span>
+	</li>
+</BOUCLE_editoriales_01>
+</ul>
+</B_editoriales_01>

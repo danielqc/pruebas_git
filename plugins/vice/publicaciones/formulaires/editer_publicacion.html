@@ -1,0 +1,40 @@
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_publicacion,nouveau}'>
+	
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable}|oui)
+	<form method='post' action='#ENV{action}'><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_publicacion' value='#ENV{id_publicacion}' />
+		<ul>
+		[(#SAISIE{input, titulo,
+			label=<:publicaciones:label_titulo:>,
+			obligatoire=oui})]
+
+		[(#SAISIE{textarea, descripcion,
+			label=<:publicaciones:label_descripcion:>,
+			class='inserer_barre_edition inserer_previsualisation',
+			obligatoire=non})]
+			
+		[(#SAISIE{input, numero,
+			label=<:publicaciones:label_numero:>,
+			explication=<:publicaciones:explicacion_numero:>,
+			obligatoire=non})]
+
+		[(#SAISIE{input, mes,
+			label=<:publicaciones:label_mes:>,
+			explication=<:publicaciones:explicacion_mes:>,
+			obligatoire=non})]
+
+		[(#SAISIE{input, ano,
+			label=<:publicaciones:label_ano:>,
+			explication=<:publicaciones:explicacion_ano:>,
+			obligatoire=non})]
+		</ul>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+	</div></form>
+	]
+</div>

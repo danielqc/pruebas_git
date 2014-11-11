@@ -1,0 +1,27 @@
+<B_contratacion_02>
+    <div id="accordion">
+        #ANCRE_PAGINATION
+<BOUCLE_contratacion_02(CONTRATACIONES){pagination 12}>
+        <INCLURE{fond=inclure/inc-resumen-licitacion, env, id_contratacion=#ID_CONTRATACION}>
+</BOUCLE_contratacion_02>
+        <div class="accordion-paginacion pagination">
+            #PAGINATION{precedent_suivant}
+        </div><!-- .accordion-paginacion -->
+    </div><!-- #accordion -->
+</B_contratacion_02>
+    <p>Ninguna licitacion</p>
+<//B_contratacion_02>
+
+<!-- activate tabs with JavaScript -->
+<script type="text/javascript">
+$(document).ready(function () {
+
+$("#accordion").tabs(
+        "#accordion div.accordion-panel", {
+                tabs: 'div.accordion-titulo', 
+                effect: 'toggle', 
+                initialIndex: null
+        }
+);
+});
+</script>

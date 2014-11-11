@@ -1,0 +1,35 @@
+<BOUCLE_si_autorise(CONDITION){si (#ID_EXPOSITOR|intval|et{#AUTORISER{voir,expositor,#ID_EXPOSITOR}})}>
+<BOUCLE_expositor(EXPOSITORES){id_expositor}{tout}>
+<div class='fiche_objet'>
+	[(#AUTORISER{modifier,expositor,#ID_EXPOSITOR})
+		<div class='bandeau_actions'>
+			[(#URL_ECRIRE{expositor_edit}
+				|parametre_url{id_expositor,#ID_EXPOSITOR}
+				|parametre_url{retour,#SELF}
+				|icone{<:expositores:accion_modificar:>, #CHEMIN{images/expositores-24.png}, #LANG_RIGHT, edit.gif})]
+		</div>
+	]
+	<h1>#APELLIDO</h1>
+	<div id='wysiwyg'>
+		[(#PIPELINE{afficher_contenu_objet,[(#ARRAY{
+			args,[(#ARRAY{
+				type,expositor,
+				id_objet,#ID_EXPOSITOR,
+				contexte,[(#ARRAY{
+					id_expositor,#ID_EXPOSITOR})]})],
+			data,[(#INCLURE{fond=prive/contenu/expositor,id=#ID_EXPOSITOR})]})]})]
+	</div>
+</div>
+<INCLURE{fond=prive/contenu/portfolio_document,objet=expositor,id_objet=#ID_EXPOSITOR}>
+<!--#navigation-->
+[(#REM) Ce pipeline charge prive/infos/$type ]
+[<div class='cadre cadre-info'>
+	(#PIPELINE{boite_infos,[(#ARRAY{
+		args,[(#ARRAY{
+			type,expositor,
+			id,#ID_EXPOSITOR})],
+		data,''})]})
+</div>]
+<!--/#navigation-->
+</BOUCLE_expositor>
+</BOUCLE_si_autorise>

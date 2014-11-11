@@ -1,0 +1,51 @@
+<div class="slideshow-noticias clearfix">
+<div class="slideshow-wrapper">
+
+<!-- container for the slides -->
+<div class="images">
+	<!-- slides -->
+	<BOUCLE_noticias_01(ARTICLES){id_rubrique=1}{!par date}{0,4}>
+	<div class="tab_nivel_1" [(#COMPTEUR_BOUCLE|=={1}|oui)]>
+		<INCLURE{fond=inclure/inc-noticia, id_article=#ID_ARTICLE, env}>
+	</div>
+	</BOUCLE_noticias_01>
+</div>
+</div>
+	<!--<div class="anteriores-noticias">
+		<a href="#URL_RUBRIQUE{1}"><:vice:anteriores_noticias:></a>
+	</div>-->
+<!-- the tabs -->
+<div class="slidetabs">
+<div class="sub-slidetabs">
+	<BOUCLE_noticias_02(ARTICLES){id_rubrique=1}{!par date}{0,4}>
+		<a href="#" [(#COMPTEUR_BOUCLE|=={1}|oui)class="current"]></a>
+	</BOUCLE_noticias_02>
+</div>
+</div>
+
+</div><!-- .slideshow-noticias -->
+
+<!-- activate tabs with JavaScript -->
+<script type="text/javascript">
+$(document).ready(function () {
+$(".slideshow-noticias .slidetabs").tabs(".slideshow-noticias .images > div", {
+
+	// enable "cross-fading" effect
+	effect: 'fade',
+	//direction: 'horizontal',
+	
+	fadeInSpeed: "slow",
+	fadeOutSpeed: "fast",
+
+	// start from the beginning after the last tab
+	rotate: true
+// use the slideshow plugin. It accepts its own configuration
+}).slideshow({
+	autoplay: true,
+	autopause: true,
+	interval: 6000,
+	clickable: false
+});
+});
+</script>
+

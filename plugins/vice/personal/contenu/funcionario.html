@@ -1,0 +1,29 @@
+[(#REM) Esqueleto para un funcionario]
+<BOUCLE_funcionario_01(FUNCIONARIOS){id_funcionario}>
+	<a href="#URL_PAGE{funcionarios}"><:personal:volver_a_los_funcionarios:></a>
+
+	[(#REM) Nombre Apellido del funcionario]
+	<h1>#NOMBRE #APELLIDO</h1>	
+
+	[(#REM) Tipo de funcionario planta/consultor]
+	[
+		<h2><:personal:label_tipo_funcionario:></h2>
+		<p>(#TIPO_FUNCIONARIO)</p>
+	]
+
+	[(#REM) Cargo]
+	[
+		<h2><:personal:label_cargo:></h2>
+		<p>(#CARGO)</p>
+	]
+	
+	[(#REM) Dirección a la que pertence]
+	[
+		<h2><:personal:label_dependencia:></h2>
+		<p>(#DEPENDENCIA)</p>
+	]
+
+	[(#REM) Gestion del portafolio y de los documentos ]
+	[(#INCLURE{fond=inclure/documents_funcionario}{id_funcionario})]
+
+</BOUCLE_funcionario_01>

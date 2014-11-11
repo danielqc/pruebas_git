@@ -1,0 +1,30 @@
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_expositor,nouveau}'>
+	
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable}|oui)
+	<form method='post' action='#ENV{action}'><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_expositor' value='#ENV{id_expositor}' />
+		<ul>
+		[(#SAISIE{input, nombre,
+			label=<:expositores:label_nombre:>,
+			obligatoire=non})]
+
+		[(#SAISIE{input, apellido,
+			label=<:expositores:label_apellido:>,
+			obligatoire=oui})]
+			
+		[(#SAISIE{textarea, biografia,
+			label=<:expositores:label_biografia:>,
+			class='inserer_barre_edition inserer_previsualisation',
+			explication=<:expositores:explicacion_biografia:>,
+			obligatoire=non})]
+		</ul>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+	</div></form>
+	]
+</div>

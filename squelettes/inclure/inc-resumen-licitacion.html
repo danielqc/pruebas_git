@@ -1,0 +1,22 @@
+<BOUCLE_contratacion_01(CONTRATACIONES){id_contratacion}>
+	<a href="[(#URL_PAGE{contratacion}|parametre_url{'id_contratacion',#ID_CONTRATACION})]">
+        <div class="accordion-titulo clearfix">
+        <!--INCLURE{fond=inclure/inc-primera-imagen-icono, id_funcionario=#ID_FUNCIONARIO}-->
+		<span>
+			<span class="titulo" id="titulo">#NUM_CONVOCATORIA - #CONCEPTO_CONVOCATORIA</span>
+		</span>
+        </div><!-- .accordion-titulo -->
+	</a>
+        <div class="accordion-panel funcionario">
+        	<!--INCLURE{fond=inclure/inc-primera-imagen-grande, id_contratacion=#ID_CONTATACION}-->
+		<ul>
+			<li class="contratacion-detalle"><strong><:licitacion:label_num_convocatoria:>:</strong><span> #NUM_CONVOCATORIA</span></li>			
+			<li class="contratacion-detalle"><strong><:licitacion:label_concepto_convocatoria:>:</strong><span> #CONCEPTO_CONVOCATORIA</span></li>
+			<li class="contratacion-detalle"><strong><:licitacion:label_f_pub_sicoes:>:</strong><span> #FECHA_PUB_SICOES</span></li>
+			<li class="contratacion-detalle"><strong><:licitacion:label_fecha_pres_prop:>:</strong><span> #FECHA_PRES_PROP</span></li>
+			<li class="contratacion-detalle"><strong><:licitacion:label_hora_pres_prop:>:</strong><span> #HORA_PRES_PROP</span></li>
+		</ul>
+			[(#INCLURE{fond=inclure/documents_resumen_licitacion,id_contratacion})]
+           <div class="nettoyeur"></div>
+        </div><!-- .accordion-panel -->
+</BOUCLE_contratacion_01>

@@ -1,0 +1,27 @@
+[(#REM) Los eventos del articulo]
+<B_eventos>
+<div class="evento">
+	<h3>[(#TOTAL_BOUCLE|>{1}|?{<:vice:eventos:>,<:vice:evento:>})]</h3>
+        #ANCRE_PAGINATION
+<BOUCLE_eventos(EVENEMENTS){id_article}{!par date_debut}{pagination 10}>
+	<div class="evento-contenido clearfix">
+		<ul>
+			<li class="evento-detalle">
+				<span> #TITRE</span>
+				[<span> - (#DESCRIPTIF|ucfirst|PtoBR)</span>]
+			</li>
+			<li class="evento-detalle">
+				<span"> [(#LIEU|ucfirst|PtoBR)]</span>
+			</li>
+			<li class="evento-detalle">
+				<span>[(#DATE_DEBUT|Agenda_affdate_debut_fin{#DATE_FIN,#HORAIRE})]</span>
+			</li>
+		</ul>
+		[(#REM)#FORMULAIRE_PARTICIPER_EVENEMENT{#ID_EVENEMENT}]
+	</div><!-- evento-contenido -->
+</BOUCLE_eventos>
+        <div class="pagination">
+            #PAGINATION{precedent_suivant}
+        </div>
+</div><!-- evento -->
+</B_eventos>

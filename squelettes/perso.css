@@ -1,0 +1,476 @@
+/* Hack para que funcione el blockquote en IE6 */
+#panel-pestana blockquote.spip {overflow: visible; zoom: 1;}
+
+#pestanas-y-paneles {
+	border:1px solid #AAA;
+	background-color:#EEE;
+	-moz-box-shadow:0 0px 5px #AAA;-webkit-box-shadow:0 0 5px #AAA;box-shadow:0 0 5px #AAA;
+}
+/*#lista-pestanas {position: absolute;top: 120px;height: 29px;}*/
+#lista-pestanas {
+		/* For WebKit (Safari, Google Chrome etc) */
+		background: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#f8f8f8));
+		/* For Mozilla/Gecko (Firefox etc) */
+		background: -moz-linear-gradient(top, #DDD, #F8F8F8);
+		/* Sintaxis CSS3 */
+		background: linear-gradient(to top, #DDD, #F8F8F8);
+		/* For Internet Explorer 5.5 - 7 */
+<!--[if IE lte IE 8]> 
+		background:transparent; 
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffDDDDDD, endColorstr=#FFf8f8f8); 
+		zoom: 1;
+<![endif]--> 
+		/* For Internet Explorer 8 */
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFDDDDDD, endColorstr=#FFF8F8F8)";
+
+}
+/*background:-moz-linear-gradient(center bottom , #DFDFDF 0%, #F2F2F2 66%, #F2F2F2 90%, #E6E6E6 93%, #BEBEBE 96%, #969696 100%) repeat scroll 0 0 transparent;}*/
+
+/* root element for tabs  */
+ul.css-tabs {margin:0 !important;padding:0;font-size: 13px;height:3em;}
+/* single tab */
+ul.css-tabs li {float:left;padding:0;margin:0;list-style-type:none;}
+/* link inside the tab. uses a background image */
+ul.css-tabs a {float:left;display:block;padding:0 15px;text-decoration:none;height:3em;line-height: 3em;color:#2B2B2B;margin-right:2px;position:relative;top:0px;outline:0;}
+ul.css-tabs a:hover {color:#000;}
+/* selected tab */
+/*ul.css-tabs a.current {border-bottom:1px solid #F7F7F7;color:#000;cursor:default;}*/
+ul.css-tabs a.on {color: #2A4266;font-weight:normal;cursor:default;text-shadow:0 1px 0 #FFFFFF;
+	background: url(images/flecha_tab_arriba.png) no-repeat center bottom;
+	z-index: 10;
+	}
+
+#panel-pestana {
+	background-color: #FFF;
+	-moz-box-shadow:0 -1px 3px #666;-webkit-box-shadow:0 -1px 3px #666;box-shadow:0 -1px 3px #666;
+
+	border-top: 1px solid #AAA ;
+	position: relative;
+	top: -1px;
+	padding: 1em;
+}
+
+/* ------------------- */
+/* Eventos             */
+/* ------------------- */
+
+/* Calendario */
+#cal-semana {clear: both;width: 100%;}
+
+#cal-semana .cal-semana-navegacion {text-align: center;position: relative;font-size: 1.1em;top: 2.7em;z-index:10;margin-left:1em;}
+#cal-semana .cal-semana-navegacion .anterior {position: relative;float: left;display: block;margin-left: 0em;width: 2em;background: url("images/left.png") no-repeat left center;text-indent:-9999em;}
+#cal-semana .cal-semana-navegacion .siguiente {position: relative; float: right;display: block;margin-right: 1em;width: 2em;background: url("images/right.png") no-repeat right center;text-indent:-9999em;}
+#cal-semana .cal-semana-navegacion .estasemana {padding: 0;}
+#cal-semana .cal-semana-navegacion a.estasemana,
+#cal-semana .cal-semana-navegacion a:link.estasemana,
+#cal-semana .cal-semana-navegacion a:visited.estasemana,
+#cal-semana .cal-semana-navegacion a:hover.estasemana,
+#cal-semana .cal-semana-navegacion a:active.estasemana
+ {color: #EEEEEE;}
+
+#cal-semana #cal-semana-contenido {position:relative;top:-2em;margin: 0.5em;border: 1px solid #AAA;
+	-moz-box-shadow:0 0 5px #AAA;-webkit-box-shadow:0 0 5px #AAA;box-shadow:0 0 5px #AAA;}
+#cal-semana .cal-semana-titulo {padding: 0.5em;height: 1em;border-bottom: 1px solid #CCC;text-transform:uppercase;text-align:center;font-size: 1.2em;line-height:1em;min-height:1em;color: #2A4266;}
+#cal-semana ul.cal-semana-lista {margin: 0;padding:0;}
+#cal-semana li.cal-semana-entrada {padding: 0.5em;list-style:none;min-height:2em;}
+#cal-semana li.cal-semana-entrada.mes {padding-left: 4em;color: #FFFFFF;text-shadow: 0px -1px #000;background-color: #47627C;text-transform:uppercase;font-size: 1.1em;font-weight: bold;line-height:1em;min-height:1em;}
+#cal-semana li.cal-semana-entrada.dia {border-bottom: 1px solid #CCC;}
+#cal-semana li.cal-semana-entrada.dia:hover {background-color: #F7F7F7;}
+
+/* Hack sucio para IE (IE no conoce el child selector >) */
+#cal-semana .cal-semana-entrada-dia {margin-left: 0.75em;width: 2em;padding-top:0.2em;font-size: 1.6em;color: #AAAAAA;}
+#cal-semana .cal-semana-entrada>.cal-semana-entrada-dia {float: left;margin-left: 0.75em;width: 2em;padding-top:0.2em;font-size: 1.6em;color: #AAAAAA;}
+
+#cal-semana .cal-semana-entrada-eventos ul {margin:0;padding-left:4.5em;list-style: none;}
+#cal-semana .cal-semana-entrada-eventos li {font-size:0.9em;}
+#cal-semana .cal-semana-entrada-eventos span {margin-right: 1em;}
+
+
+/* Lista de eventos */
+.evento {}
+.evento .evento-contenido {margin-bottom: 10px;background-color: #F8F8F8; border: 1px solid #F0F0F0;}
+.evento .evento-contenido .evento-detalle {}
+.evento .evento-contenido .evento-detalle strong {font-weight: bold;}
+
+/* ------------------- */
+/* Noticias            */
+/* ------------------- */
+
+.noticia {}
+.noticia h3 {min-height:3em;}
+.noticia-imagen {float: left;margin: 0; width: 731px; position:relative;}
+.noticia .noticia-imagen img {/*display:block;*/
+	-moz-box-shadow:0 0 5px #AAA;-webkit-box-shadow:0 0 5px #AAA;box-shadow:0 0 5px #AAA; height: 434px;}
+.noticia .noticia-imagen .noticia-texto {
+	padding: 0 2em;
+	margin-bottom: 0px;
+	width:732px;
+	height: 80px;}
+.noticia .noticia-imagen .noticia-texto .wrapper { 
+	height: 80px; 
+	width:702px;
+	padding-left:20px;
+	padding-right:70px;
+	position:absolute;
+	top: 360px;
+	left:0px;
+	background-color: rgba(0, 0, 0, 0.45);
+	color:#ffffff;
+	}
+.noticia .noticia-imagen .noticia-texto .wrapper:after {
+   /* display: block;*/
+    position: absolute;
+    right: 0;
+    top: 360px;
+    left:0px;
+    bottom: 0;
+    width: 702px;
+    /*background: linear-gradient(to top, #FFFFFF, rgba(255, 255, 255, 0) 1em);*/
+    content: "";
+    }
+.noticia .noticia-texto h3 {text-transform: uppercase;}
+.noticia .noticia-texto p {text-align: justify;padding: 3px 0;}
+.noticia .noticia-seguir {float: right;margin-right: 1em;}
+
+/* ------------------- */
+/* Slideshow Noticias  */
+/* ------------------- */
+
+.slideshow-noticias {}
+.slideshow-noticias .slideshow-wrapper {position:relative;padding: 0 0px;overflow: hidden;}
+/* container for slides */
+.slideshow-noticias .images {background:#000000;border:1px solid #AAA;height:437px;overflow:hidden;margin:0.5em; margin-top: 0;
+	/* CSS3 tweaks for modern browsers */
+	-moz-box-shadow:0 0 5px #AAA;-webkit-box-shadow:0 0 5px #AAA;box-shadow:0 0 5px #AAA;}
+
+/* single slide *********************************************************************************/
+.slideshow-noticias .images div.tab_nivel_1 {display:none;overflow:hidden;margin-bottom: 30px;height:437px;font-size:12px;position: relative;top: 0px;}
+
+.slideshow-noticias .anteriores-noticias {font-size:12px;margin-right: 2em;float: right;position: relative;top: -3em;height: 1em;}
+
+/* tabs (those little circles below slides) */
+.slideshow-noticias .slidetabs {float:right;position:relative;top:-30px;margin-right:1em;}
+.slideshow-noticias .slidetabs .sub-slidetabs {width:60px;} /*tendria que ser 56px, pero da pbs con IE6*/
+
+/* single tab */
+.slideshow-noticias .slidetabs a {width:8px;height:8px;float:left;margin:3px;background:url("images/navigator.png") 0 0 no-repeat;display:block;font-size:1px;}
+
+/* mouseover state */
+.slideshow-noticias .slidetabs a:hover {background-position:0 -8px;border:none;}
+
+/* active state (current page state) */
+.slideshow-noticias .slidetabs a.current {background-position:0 -16px;} 	
+
+/* ------------------- */
+/* Slideshow Sistemas  */
+/* ------------------- */
+
+.sistema {}
+.sistema .sistema-imagen {float: left;margin: 0;}
+.sistema .sistema-imagen img {display:block;
+	-moz-box-shadow:0 0 5px #AAA;-webkit-box-shadow:0 0 5px #AAA;box-shadow:0 0 5px #AAA;}
+
+.slideshow-sistemas {width: 207px;height:297px;}
+.slideshow-sistemas .slideshow-wrapper {position:relative;padding: 0 0px;}
+/* container for slides */
+.slideshow-sistemas .images {border:1px solid #AAA;height:260px;width:207px;margin-bottom: 30px;
+	float: left;
+	/* CSS3 tweaks for modern browsers */
+	-moz-box-shadow:0 0 5px #AAA;-webkit-box-shadow:0 0 5px #AAA;box-shadow:0 0 5px #AAA;
+	overflow:hidden;}
+
+/* single slide */
+.slideshow-sistemas .images div.tab_nivel_1 {display:none;height:260px;width:207px;overflow:hidden;position: absolute;top: 1px;}
+
+/* tabs (those little circles below slides) */
+.slideshow-sistemas .slidetabs {clear:both;position:relative;top:-20px;}
+.slideshow-sistemas .slidetabs .sub-slidetabs {margin:auto;width:60px;} /*tendria que ser 56px, pero da pbs con IE6*/
+
+/* single tab */
+.slideshow-sistemas .slidetabs a {width:8px;height:8px;float:left;margin:3px;background:url("images/navigator.png") 0 0 no-repeat;display:block;font-size:1px;}
+
+/* mouseover state */
+.slideshow-sistemas .slidetabs a:hover {background-position:0 -8px;border:none;}
+
+/* active state (current page state) */
+.slideshow-sistemas .slidetabs a.current {background-position:0 -16px;} 	
+
+
+
+
+/* disabled navigational button. is not needed when tabs are configured with rotate: true */
+.disabled {visibility:hidden !important;}
+
+/* ------------------- */
+/* Lista acordeon      */
+/* ------------------- */
+
+/* root element for accordion. decorated with rounded borders and gradient background image */
+#accordion {
+	width: 98%;
+	margin: auto;
+	/*border:1px solid #AAA;*/
+	border-bottom:none;	
+}
+
+/* accordion header */
+#accordion h2 {
+	margin:0;
+	padding:5px 15px;
+	font-size:1em;
+	border-bottom: 2px solid #47627C;
+	cursor:pointer;		
+	color: #444444;
+}
+#accordion .accordion-titulo {
+	margin:0;
+	padding:5px 15px;
+	font-size:1em;
+	border-bottom: 2px solid #47627C;
+	cursor:pointer;		
+	color: #444444;
+}
+#accordion .accordion-titulo-lista {
+    margin:0;
+    padding:5px 15px;
+    font-size:1em;
+    border-bottom: 2px solid #47627C;
+    cursor:pointer;     
+    color: #444444;
+}
+
+#accordion .accordion-titulo .titulo {
+	font-weight: bold;
+}
+#accordion .accordion-titulo-lista .titulo {
+    font-weight: bold;
+}
+
+/* currently active header */
+#accordion h2.current {
+	cursor:default;
+	color: #2A4266;
+	background-color:#FCFCFC;
+}
+#accordion .accordion-titulo.current {
+	cursor:default;
+	color: #2A4266;
+	background-color:#FCFCFC;
+}
+#accordion .accordion-titulo-lista.current {
+    cursor:default;
+    color: #2A4266;
+    background-color:#FCFCFC;
+}
+
+#accordion h2.titulo span {
+	margin-right: 0.5em;
+}
+#accordion h2.separador {
+	background-color: #47627C;
+	color: #FFFFFF;
+	cursor: default;
+}
+#accordion h2.separador-lista {
+	text-transform: uppercase;
+	padding-top:10px;
+    background-color: #47627C;
+    color: #FFFFFF;
+    /*cursor: default;*/
+	height:20px;
+	border-bottom:1px solid #FFF;
+}
+
+/* accordion pane */
+#accordion .pane {
+	background-color: #F8F8F8;
+	border-bottom: 1px solid #AAA;
+	display:none;
+}
+#accordion .accordion-panel {
+	background-color: #F8F8F8;
+	border-bottom: 1px solid #AAA;
+	display:none;
+	width: 100%;
+}
+#accordion .accordion-panel-lista {
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #AAA;
+    display:none;
+    width: 100%;
+}
+
+/* a title inside pane */
+#accordion .pane h3 {
+	font-weight:normal;
+	margin:0 0 -5px 0;
+	font-size:16px;
+	color:#999;
+}
+
+#accordion .accordion-paginacion {
+	text-align: center;
+}
+
+.resultats .pagination {
+	text-align: center;
+}
+
+#panel-pestana .pagination {
+	text-align: center;
+}
+
+.primera-imagen-icono {float: left; margin-right: 1em;}
+.primera-imagen-grande {}
+
+/* Elemento destacado */
+#accordion .accordion-titulo.destacado {background-color: #eee;font-size: 1.15em;color: #2A4266;text-shadow: 0 1px 0 #FFFFFF;font-style: italic;}
+
+/* Lista de detalles de un articulo de la parte institucional */
+.institucion {position: relative;}
+.institucion .institucion-vinculo {text-align: center;}
+.institucion .primera-imagen-grande {float: right;margin: 0.5em;}
+.institucion .texto {padding-left: 3em;margin-right: 160px;text-align: justify;}
+
+/* Lista de detalles de una publicacion */
+.publicacion {position: relative; border-bottom: 1px solid #2A4266;}
+.publicacion ul {margin: 0;padding:1em 0 1em 3em;}
+.publicacion .publicacion-detalle {}
+.publicacion .publicacion-detalle strong {font-weight: bold;}
+.publicacion .publicacion-vinculo {text-align: center;}
+.publicacion .liste-items {border: none;padding-bottom: 0;padding-top: 5px;}
+.publicacion .primera-imagen-grande {border: 1px solid #DDDDDD;float: right;margin: 0.5em;}
+
+/* Lista de detalles de un seminario */
+.seminario {position: relative;}
+.seminario ul {margin: 0;padding:1em 0 1em 3em;list-style: none;}
+.seminario .seminario-detalle {}
+.seminario .seminario-detalle strong {font-weight: bold;}
+.seminario .seminario-vinculo {text-align: center;}
+.seminario .primera-imagen-grande {float: right;margin: 0.5em;}
+.seminario .evento {padding-left: 3em;margin-right: 140px;}
+
+/* Lista de detalles de un expositor */
+.expositor {position: relative;}
+.expositor ul {margin: 0;padding:1em 0 1em 3em;list-style: none;}
+.expositor .expositor-detalle {}
+.expositor .expositor-detalle strong {font-weight: bold;}
+.expositor .expositor-vinculo {text-align: center;}
+.expositor .primera-imagen-grande {float: right;margin: 0.5em;}
+
+/* Lista de detalles de un proyecto */
+.proyecto {position: relative;}
+.proyecto ul {margin: 0;padding:1em 0 1em 3em;}
+.proyecto .proyecto-detalle {}
+.proyecto .proyecto-detalle strong {font-weight: bold;}
+.proyecto .proyecto-vinculo {text-align: center;}
+.proyecto .primera-imagen-grande {float: right;margin: 0.5em;}
+
+/* Lista de detalles de un parlamentario */
+.parlamentario {position: relative;}
+.parlamentario ul {margin: 0;padding:1em 0 1em 3em;}
+.parlamentario .parlamentario-detalle {}
+.parlamentario .parlamentario-detalle strong {font-weight: bold;}
+.parlamentario .parlamentario-vinculo {text-align: center;}
+.parlamentario .primera-imagen-grande {float: right;margin: 0.5em;}
+
+/* Lista de detalles de un funcionario */
+.funcionario {position: relative;}
+.funcionario ul {margin: 0;padding:1em 0 1em 3em;}
+.funcionario .funcionario-detalle {text-transform: capitalize;}
+.funcionario .funcionario-detalle strong {font-weight: bold;}
+.funcionario .funcionario-vinculo {text-align: center;}
+.funcionario .primera-imagen-grande {float: right;margin: 0.5em;}
+
+/* Lista de detalles de una noticia */
+.noticia {position: relative;}
+.noticia ul {margin: 0;padding:1em 0 1em 3em;list-style: none;}
+.noticia .noticia-detalle {}
+.noticia .noticia-detalle strong {font-weight: bold;}
+.noticia .noticia-vinculo {text-align: center;}
+.noticia .primera-imagen-grande {float: right;margin: 0.5em;}
+.noticia .texto {padding-left: 3em;margin-right: 160px;text-align: justify;}
+
+/* Lista de detalles de un video */
+.video {position: relative;}
+.video ul {margin: 0;padding:1em 0 1em 3em;list-style: none;}
+.video .video-detalle {}
+.video .video-detalle strong {font-weight: bold;}
+.video .video-vinculo {text-align: center;}
+.video .primera-imagen-grande {float: right;margin: 0.5em;}
+.video .texto {padding-left: 3em;margin-right: 160px;text-align: justify;}
+
+
+.lista-expositores {list-style: none;}
+
+.contenu-principal .primera-imagen-grande {float: right;margin: 0.5em;}
+
+.contenu-principal .spip_logos	 {
+        float: left;
+        margin-right: 2em;
+}
+.contenu-principal .spip_logos.spip_logos_principal {
+        float: right;
+	margin-left: 2em;
+}
+.contenu-principal p {
+        text-align: justify;
+}
+
+.menu-conteneur {margin-bottom: 2em;}
+#formulaire_recherche {margin-bottom: 2em;}
+
+/* No marcar las palabras de la busqueda (por omision, las ocurencias de la palabra buscada estan marcadas con fluorescencia) */
+.spip_surligne {background: none;}
+.menu-liste .menu-entree a span {color: #FFFFFF;}
+
+.vivo {width: 247px; margin: 0 auto;border: 1px solid #EEE;}
+.vivo .vivo-omision {width: 247px;height: 250px;z-index:2;}
+.vivo .vivo-omision .mensaje {margin: 0 auto;padding-top:100px;width:200px;text-align: center;}
+.vivo .vivo-objeto {position: relative;width:247px; height: 250px;top: -250px;margin-bottom:-250px;}
+/*.vivo.vivo-asamblea {width: 261px;}
+.vivo.vivo-asamblea .vivo-omision {}
+.vivo.vivo-asamblea .vivo-omision .mensaje {}
+.vivo.vivo-asamblea .vivo-objeto {width:261px;}
+.vivo.vivo-diputados {}
+.vivo.vivo-diputados .vivo-omision {}
+.vivo.vivo-diputados .vivo-omision .mensaje {}
+.vivo.vivo-diputados .vivo-objeto {}
+.vivo.vivo-senadores {}
+.vivo.vivo-senadores .vivo-omision {z-index:0;} /*porque? asegurarse que es necesario*//*
+.vivo.vivo-senadores .vivo-omision .mensaje {}
+.vivo.vivo-senadores .vivo-objeto {}
+*/
+.formulaire_filtro_fecha {
+	float: right;
+	margin-top: 0px;
+	margin-right: 30px;
+}
+.formulaire_filtro_fecha ul {
+	display: block;
+	float: left;
+}
+.formulaire_filtro_fecha ul li {
+	padding: 0;
+	border: none;
+}
+.formulaire_filtro_fecha ul li input.date {
+	width: 123px;
+}
+.formulaire_filtro_fecha ul li a.dp-choose-date {
+	margin-bottom: 9px;
+}
+.formulaire_filtro_fecha .boutons input.submit {
+	text-align: center !important;
+	width: 150px;
+	background-color: #2A4266;
+	border-color: #4A6286 #0A2246 #0A2246 #4A6286;
+}
+
+
+/* Elemento JEFE  */
+#accordion .accordion-titulo.jefe {background-color: #ddd;font-size: 1.15em;color: #2A4266;text-shadow: 0 1px 0 #FFFFFF;font-style: italic;}
+
+.youtube ul.lista_youtube {
+	list-style: none outside none;
+}

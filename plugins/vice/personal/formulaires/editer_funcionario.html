@@ -1,0 +1,60 @@
+[(#SET{lista_titular, #ARRAY{"Planta","Planta","Consultor de línea","Consultor de línea","Policía nacional","Policía nacional"}})]
+[(#SET{lista_dependencia, #ARRAY{
+	"Asesoría general","Asesoría general",
+	"Asesoría legal","Asesoría legal",
+	"Auditoría Interna","Auditoría Interna",
+	"Dirección de biblioteca y archivo histórico","Dirección de biblioteca y archivo histórico",
+	"Dirección de comunicación y legislativa TV","Dirección de comunicación y legislativa TV",
+	"Dirección de coordinación legislativa","Dirección de coordinación legislativa",
+	"Dirección de participación ciudadana","Dirección de participación ciudadana",
+	"Dirección de planificación, programas y proyectos","Dirección de planificación, programas y proyectos",
+	"Dirección general de asuntos administrativos","Dirección general de asuntos administrativos",
+	"Gabinete","Gabinete",
+	"GeoBolivia","GeoBolivia",
+	"Secretaría general","Secretaría general",
+	"Seguridad","Seguridad",
+	"Agencia para el Desarrollo de la Sociedad de la Información en Bolivia","Agencia para el Desarrollo de la Sociedad de la Información en Bolivia"
+	}})]
+
+
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_funcionario,nouveau}'>
+	
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable}|oui)
+	<form method='post' action='#ENV{action}'><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_funcionario' value='#ENV{id_funcionario}' />
+		<ul>
+		[(#SAISIE{input, nombre,
+			label=<:personal:label_nombre:>,
+			obligatoire=oui})]
+
+		[(#SAISIE{input, apellido,
+			label=<:personal:label_apellido:>,
+			obligatoire=oui})]
+			
+			
+		[(#SAISIE{selection, tipo_funcionario,
+			label=<:personal:label_tipo_funcionario:>,
+			datas=#GET{lista_titular},
+			obligatoire=oui})]
+			
+
+		[(#SAISIE{input, cargo,
+			label=<:personal:label_cargo:>,
+			obligatoire=oui})]
+		
+		[(#SAISIE{selection, dependencia,
+			label=<:personal:label_dependencia:>,
+			datas=#GET{lista_dependencia},
+			obligatoire=oui})]
+
+		</ul>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+	</div></form>
+	]
+</div>

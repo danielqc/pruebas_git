@@ -1,0 +1,22 @@
+<p><:vice:vice_nombre_largo:></p>
+<p><:vice:presidencia_asamblea:></p>
+<p><:vice:direccion_vice:></p>
+<p><:vice:la_paz_bolivia:></p>
+
+<div id="pie-spip">
+<a href="http://www.spip.net/" title="<:site_realise_avec_spip:>"><img src="#CHEMIN{spip.png}" alt="SPIP" width="48" height="16" /></a>
+
+[(#SESSION{id_auteur}|oui)| <a href="#URL_LOGOUT" rel="nofollow"><:icone_deconnecter:></a>]
+
+[(#SESSION{id_auteur}|non)| <a href="[(#URL_PAGE{login}|parametre_url{url,#SELF})]" rel="nofollow" class='login_modal'><:lien_connecter:></a>]
+
+[(#AUTORISER{ecrire})| <a href="#EVAL{_DIR_RESTREINT_ABS}"><:espace_prive:></a>]
+
+[(#REM) para modificar el texto o la redireccion, ir al articulo 204]
+<BOUCLE_article_correo(ARTICLES){id_article=204}>
+	[(#URL_ARTICLE|oui)| <a href="#URL_ARTICLE">#TITRE</a>]
+</BOUCLE_article_correo>
+
+| <a href="#URL_PAGE{backend}" rel="alternate" title="<:syndiquer_site:>"><img src="#CHEMIN{feed.png}" alt="<:icone_suivi_activite:>" width="16" height="16" />&nbsp;RSS&nbsp;2.0</a>
+
+</div>

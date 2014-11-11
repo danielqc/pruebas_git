@@ -1,0 +1,13 @@
+[(#REM) Esqueleto para las directivas]
+
+<h1><:asamblea:directivas:></h1>
+<B_directivas_01>
+<ul>
+<BOUCLE_directivas_01(DIRECTIVAS){par orden}>
+	<li>
+		[(#REM) Titulo de la directiva]
+		<span><a href="[(#URL_PAGE{directiva}|parametre_url{id_directiva,#ID_DIRECTIVA})]">#TITRE</a></span>
+	</li>
+</BOUCLE_directivas_01>
+</ul>
+</B_directivas_01>

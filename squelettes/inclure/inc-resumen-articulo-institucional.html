@@ -1,0 +1,20 @@
+<BOUCLE_articulo_02(ARTICLES){id_article}>
+	<a href="#URL_ARTICLE">
+        <div class="accordion-titulo clearfix">
+        <INCLURE{fond=inclure/inc-primera-imagen-icono, id_article=#ID_ARTICLE}>
+	<span>
+		<span class="titulo">#TITRE</span>
+	</span>
+        </div><!-- .accordion-titulo -->
+	</a>
+        <div class="accordion-panel institucion">
+                <INCLURE{fond=inclure/inc-primera-imagen-grande, id_article=#ID_ARTICLE}>
+		<div class="texto">
+			#INTRODUCTION
+		</div>
+		<div class="institucion-vinculo">
+			<a href="#URL_ARTICLE"><:vice:mas_informacion:></a>
+		</div>
+		<div class="nettoyeur"></div>
+        </div><!-- .accordion-panel -->
+</BOUCLE_articulo_02>

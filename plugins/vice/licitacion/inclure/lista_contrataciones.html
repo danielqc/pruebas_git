@@ -1,0 +1,35 @@
+<B_contrataciones>
+<table class='contrataciones spip'>
+	<thead>
+	<tr>
+		<th><:licitacion:label_id:></th>
+		<th><:licitacion:label_num_convocatoria:></th>
+		<th><:licitacion:label_concepto_convocatoria:></th>
+		<th><:licitacion:label_fecha_publicacion_sicoes:></th>
+		<th><:licitacion:label_acciones:></td>
+	</tr>
+	</thead>
+	<tbody>
+<BOUCLE_contrataciones(CONTRATACIONES){par fecha_pub_sicoes}{pagination 10}>
+	<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+		<td>#ID_CONTRATACION</td>		
+		<td>#NUM_CONVOCATORIA</td>
+		<td>#CONCEPTO_CONVOCATORIA</td>
+		<td>#FECHA_PUB_SICOES</td>
+		<td>
+			[(#AUTORISER{voir,contratacion,#ID_CONTRATACION})
+				<a href='[(#URL_ECRIRE{contratacion_voir}|parametre_url{id_contratacion,#ID_CONTRATACION})]'><:licitacion:accion_ver:></a>
+			]
+			[(#AUTORISER{modifier,contratacion,#ID_CONTRATACION})
+				|
+				<a href='[(#URL_ECRIRE{contratacion_edit}|parametre_url{id_contratacion,#ID_CONTRATACION})]'><:licitacion:accion_modificar:></a>
+				|
+				<a href='[(#URL_ACTION_AUTEUR{supprimer_contratacion,#ID_CONTRATACION,#SELF})]'><:licitacion:accion_suprimir:></a>
+			]
+		</td>
+	</tr>
+</BOUCLE_contrataciones>
+	</tbody>
+</table>
+[<p class='pagination'>(#PAGINATION)</p>]
+</B_contrataciones>

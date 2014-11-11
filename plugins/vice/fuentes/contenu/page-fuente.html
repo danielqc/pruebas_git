@@ -1,0 +1,15 @@
+[(#REM) Esqueleto para un fuente]
+<BOUCLE_fuente_01(FUENTES){id_fuente}>
+	<a href="#URL_PAGE{fuentes}"><:fuentes:volver_a_las_fuentes:></a>
+
+	[(#REM) Nombre del fuente]
+	<h1>#NOMBRE</h1>
+
+	[(#REM) Descripcion de la fuente]
+	[<h2><:fuentes:label_descripcion:></h2>
+	<p>(#DESCRIPCION)</p>]
+
+        [(#REM) Gestion del portafolio y de los documentos ]
+        [(#INCLURE{fond=inclure/documents_fuente}{id_fuente})]
+
+</BOUCLE_fuente_01>

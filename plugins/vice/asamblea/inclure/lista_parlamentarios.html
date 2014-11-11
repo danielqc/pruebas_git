@@ -1,0 +1,33 @@
+<B_parlamentarios>
+<table class='parlamentarios spip'>
+	<thead>
+	<tr>
+		<th><:asamblea:label_id:></th>
+		<th><:asamblea:label_apellido:></th>
+		<th><:asamblea:label_nombre:></th>
+		<th><:asamblea:label_acciones:></td>
+	</tr>
+	</thead>
+	<tbody>
+<BOUCLE_parlamentarios(PARLAMENTARIOS){id_directiva?}{id_comision?}{par apellido}{pagination 10}>
+	<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+		<td>#ID_PARLAMENTARIO</td>
+		<td>#APELLIDO</td>
+		<td>#NOMBRE</td>
+		<td>
+			[(#AUTORISER{voir,parlamentario,#ID_PARLAMENTARIO})
+				<a href='[(#URL_ECRIRE{parlamentario_voir}|parametre_url{id_parlamentario,#ID_PARLAMENTARIO})]'><:asamblea:accion_ver:></a>
+			]
+			[(#AUTORISER{modifier,parlamentario,#ID_PARLAMENTARIO})
+				|
+				<a href='[(#URL_ECRIRE{parlamentario_edit}|parametre_url{id_parlamentario,#ID_PARLAMENTARIO})]'><:asamblea:accion_modificar:></a>
+				|
+				<a href='[(#URL_ACTION_AUTEUR{supprimer_parlamentario,#ID_PARLAMENTARIO,#SELF})]'><:asamblea:accion_suprimir:></a>
+			]
+		</td>
+	</tr>
+</BOUCLE_parlamentarios>
+	</tbody>
+</table>
+[<p class='pagination'>(#PAGINATION)</p>]
+</B_parlamentarios>

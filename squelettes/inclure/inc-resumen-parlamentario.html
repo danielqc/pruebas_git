@@ -1,0 +1,49 @@
+<BOUCLE_parlamentarios_01(PARLAMENTARIOS){id_parlamentario}>
+ 
+	<a href="[(#URL_PAGE{parlamentario}|parametre_url{'id_parlamentario',#ID_PARLAMENTARIO})]">
+        <div class="accordion-titulo clearfix">
+        <INCLURE{fond=inclure/inc-primera-imagen-icono, id_parlamentario=#ID_PARLAMENTARIO}>
+	<span>
+		<span class="titulo">#APELLIDO, #NOMBRE</span>
+                <BOUCLE_partidos_011(atlas_electoral:elec_partidos){id_partido}>
+                        <span> - #SIGLA</span>
+                </BOUCLE_partidos_011>
+                <BOUCLE_departamentos_011(atlas_electoral:geo_departamentos){id_departamento}>
+                        <span> - #NOMBRE</span>
+                </BOUCLE_departamentos_011>
+                <BOUCLE_circunscripciones_011(atlas_electoral:geo_circunscripciones){id_circunscripcion}{0,1}>
+			[<span> - (#CODIGO|cadena_circunscripcion)</span>]
+                </BOUCLE_circunscripciones_011>
+			[<span> - (#ID_CIRCUNSCRIPCION|cadena_circunscripcion)</span>]
+                <//B_circunscripciones_011>
+	</span>
+        </div><!-- .accordion-titulo -->
+	</a>
+        <div class="accordion-panel parlamentario">
+                <INCLURE{fond=inclure/inc-primera-imagen-grande, id_parlamentario=#ID_PARLAMENTARIO}>
+		<ul>
+			<li class="parlamentario-detalle"><strong><:asamblea:label_nombre:>:</strong><span> #NOMBRE #APELLIDO</span></li>
+        		<BOUCLE_partido_012(atlas_electoral:elec_partidos){id_partido=#ID_PARTIDO}>
+				<li class="parlamentario-detalle"><strong><:asamblea:label_partido:>:</strong><span> #SIGLA</span></li>
+		        </BOUCLE_partido_012>
+			<BOUCLE_departamento_012(atlas_electoral:geo_departamentos){id_departamento=#ID_DEPARTAMENTO}>
+				<li class="parlamentario-detalle"><strong><:asamblea:label_departamento:>:</strong><span> #NOMBRE</span></li>
+			</BOUCLE_departamento_012>
+			[<li class="parlamentario-detalle"><strong><:asamblea:label_fecha_nacimiento:>:</strong><span> (#FECHA_NACIMIENTO)</span></li>]
+			[<li class="parlamentario-detalle"><strong><:asamblea:label_domicilio:>:</strong><span> (#DOMICILIO)</span></li>]
+			[<li class="parlamentario-detalle"><strong><:asamblea:label_celular:>:</strong><span> (#CELULAR)</span></li>]
+			<BOUCLE_suplente_013(PARLAMENTARIOS){id_parlamentario=#ID_SUPLENTE}{0,1}>
+				<li class="parlamentario-detalle"><strong><:asamblea:label_suplente:>:</strong><span> 
+					<a href="[(#URL_PAGE{parlamentario}|parametre_url{'id_parlamentario',#ID_PARLAMENTARIO})]">
+						#NOMBRE #APELLIDO
+					</a>
+				</span></li>
+			</BOUCLE_suplente_013>
+
+		</ul>
+		<div class="parlamentario-vinculo">
+			<a href="[(#URL_PAGE{parlamentario}|parametre_url{'id_parlamentario',#ID_PARLAMENTARIO})]"><:vice:ver_el_parlamentario:></a>
+		</div>
+                <div class="nettoyeur"></div>
+        </div><!-- .accordion-panel -->
+</BOUCLE_parlamentarios_01>

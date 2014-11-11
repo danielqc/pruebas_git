@@ -1,0 +1,16 @@
+[(#AUTORISER{voir, editoriales})
+	<h1><:editoriales:lista_editoriales:></h1>
+	<div class='ajax'>
+	<INCLURE{fond=inclure/lista_editoriales,env,ajax} />
+	</div>
+	<!--#navigation-->
+	<div class='cadre cadre-info'>
+		<p><:editoriales:descripcion_editoriales:></p>
+		[(#AUTORISER{modifier, editorial})
+			[(#URL_ECRIRE{editorial_edit}
+				|parametre_url{new,oui}
+				|icone{<:editoriales:accion_anadir:>, #CHEMIN{images/editoriales-24.png}, center, creer.gif})]
+		]
+	</div>
+	<!--/#navigation-->
+]

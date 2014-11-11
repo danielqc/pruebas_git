@@ -1,0 +1,51 @@
+[(#REM) Esqueleto para las publicaciones de un expositor]
+
+[(#REM) OJO - Nada que ver! no es para nada optimizado! Hay que modificar la manera de manejar los 
+expositores/autores en las publicaciones, con una tabla de correspondencia! Asi se podra utilizar 
+un criterio {id_expositor}... Mientra tanto, el bucle jala TODAS las publicaciones, lo que sera 
+una eternidad si hay muchas publicaciones !!!]
+
+[(#REM) Primera fase: jalar todas las publicaciones del expositor dentro de una tabla
+	Es necesario (hasta que cambiemos de sistema, como dicho arriba) con la paginacion para 
+	evitar tener paginas con solo una, dos, cero, ... publicaciones
+]
+#SET{lista_publicaciones, #ARRAY}
+<BOUCLE_expositor_01(EXPOSITORES){id_expositor}>
+<BOUCLE_publicaciones_01(PUBLICACIONES){id_mot ?}{!par ano,mes,maj}>
+        <BOUCLE_expositores_011(EXPOSITORES){tous}{id_expositor IN (#EXPOSITORES|explode{","})}>
+		[(#REM) Comparacion entre los id_expositor]
+		[(#_expositores_011:ID_EXPOSITOR|=={#_expositores_01:ID_EXPOSITOR}|oui)
+			#SET_PUSH{lista_publicaciones, #ID_PUBLICACION}
+		]
+        </BOUCLE_expositores_011>
+</BOUCLE_publicaciones_01>
+</BOUCLE_expositor_01>
+
+[(#REM) Segunda fase: mostrar las publicaciones con la paginacion]
+<B_publicaciones_02>
+	<div id="accordion">
+        #ANCRE_PAGINATION
+<BOUCLE_publicaciones_02(POUR){tableau #GET{lista_publicaciones}}{pagination 12}>
+	<INCLURE{fond=inclure/inc-resumen-publicacion, env, id_publicacion=#VALEUR}>
+</BOUCLE_publicaciones_02>
+                <div class="accordion-paginacion pagination">
+                        #PAGINATION{precedent_suivant}
+                </div><!-- .accordion-paginacion -->
+	</div><!-- #accordion -->
+</B_publicaciones_02>
+	<p><:vice:ninguna_publicacion:></p>
+<//B_publicaciones_02>
+
+<!-- activate tabs with JavaScript -->
+<script type="text/javascript">
+$(document).ready(function () {
+$("#accordion").tabs(
+	"#accordion div.accordion-panel", {
+		tabs: 'div.accordion-titulo', 
+		effect: 'toggle', 
+		initialIndex: null
+	}
+);
+});
+</script>
+

@@ -1,0 +1,30 @@
+[(#REM) Esqueleto para una licitacion/contratacion]
+<BOUCLE_contratacion_01(CONTRATACIONES){id_contratacion}>
+	<a href="#URL_PAGE{contrataciones}"><:licitacion:volver_a_las_contrataciones:></a>
+
+	[(#REM) Número de la convocatoria]
+	<h1><:licitacion:label_num_convocatoria:> #NUM_CONVOCATORIA</h1>	
+
+	[(#REM) Concepto de la convocatoria]
+	<h1><:licitacion:label_concepto_convocatoria:> #CONCEPTO_CONVOCATORIA</h1>
+	
+	[(#REM) fecha de presentacion de la propuesta en el SICOES]
+	[
+		<h2><:licitacion:label_fecha_publicacion_sicoes:></h2>
+		<p>(#FECHA_PRES_SICOES)</p>
+	]
+	[(#REM) Fecha de la presentación de la propuesta]
+	[
+		<h2><:licitacion:label_fecha_pres_prop:></h2>
+		<p>(#FECHA_PRES_PROP)</p>
+	]
+	[(#REM) Hora de la presentación de la propuesta]
+	[
+		<h2><:licitacion:label_hora_pres_prop:></h2>
+		<p>(#HORA_PRES_PROP)</p>
+	]
+	
+	[(#REM) Gestion del portafolio y de los documentos ]
+	[(#INCLURE{fond=inclure/documents_contratacion}{id_contratacion})]
+
+</BOUCLE_contratacion_01>

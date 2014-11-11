@@ -1,0 +1,24 @@
+#CACHE{0}
+[(#SET{id_editorial,[(#VAL{id_editorial}|_request|sinon{new})]})]
+<BOUCLE_si_autorise(CONDITION){si (#AUTORISER{modifier,editorial,#GET{id_editorial}})}>
+	[(#SET{retour, #URL_ECRIRE{editoriales}})]
+	<BOUCLE_titre(EDITORIALES){id_editorial=#GET{id_editorial}}{tout}>
+		[(#SET{titre, #NOMBRE})]
+		[(#SET{retour, [(#URL_ECRIRE{editorial_voir}|parametre_url{id_editorial,#ID_EDITORIAL})]})]
+	</BOUCLE_titre>
+
+	[(#REM) Advertencia si el editorial fue editado hace menos de una hora por una otra persona]
+	[(#SET{mention, #ID_EDITORIAL|mention_qui_edite{'editorial'}})]
+	[(#SET{nombre_autor, #GET{mention}|table_valeur{nom_auteur_modif}})]
+	[(#SET{minutos, #GET{mention}|table_valeur{date_diff}})]
+	[(#GET{mention}|oui)
+		<:editoriales:aviso_editorial_modificado{nom_auteur_modif=#GET{nombre_autor}, date_diff=#GET{minutos}}:>
+	]
+
+	[(#INCLURE{fond=prive/editer/editorial,
+		id_editorial=#GET{id_editorial},
+		icone_retour=[(#ENV{retour,#GET{retour}}
+			|icone{<:icone_retour:>, #CHEMIN{images/editoriales-24.png}, #LANG_LEFT })],
+		titre=#GET{titre}
+	})]
+</BOUCLE_si_autorise>

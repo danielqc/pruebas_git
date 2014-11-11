@@ -1,0 +1,32 @@
+[(#REM) el criterio {archives} necesita el plugin mini-calendrier]
+
+<B_noticias_02>
+	<div id="accordion">
+        #ANCRE_PAGINATION
+<BOUCLE_noticias_02(ARTICLES){id_rubrique?}{!par date}{archives ?}{pagination 12}>
+
+        <INCLURE{fond=inclure/inc-resumen-noticia, env, id_article=#ID_ARTICLE}>
+
+</BOUCLE_noticias_02>
+		<div class="accordion-paginacion pagination">
+			#PAGINATION{precedent_suivant}
+		</div><!-- .accordion-paginacion -->
+	</div><!-- #accordion -->
+</B_noticias_02>
+	<p><:vice:ninguna_noticia:></p>
+<//B_noticias_02>
+
+<!-- activate tabs with JavaScript -->
+<script type="text/javascript">
+$(document).ready(function () {
+
+$("#accordion").tabs(
+        "#accordion div.accordion-panel", {
+                tabs: 'div.accordion-titulo', 
+                effect: 'toggle', 
+                initialIndex: null
+        }
+);
+});
+</script>
+

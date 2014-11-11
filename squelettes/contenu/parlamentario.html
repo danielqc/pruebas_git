@@ -1,0 +1,41 @@
+[(#REM) Esqueleto para los parlamentarios]
+
+[(#REM) Por omision es diputado, y verifiquemos luego si es senador]
+#SET{id_pestana, #ENV{id_pestana, 2}}
+<BOUCLE_parlamentario_01(PARLAMENTARIOS){id_parlamentario}{0,1}>
+	[(#ID_CIRCUNSCRIPCION|=={-3}|oui)
+		#SET{id_pestana, #ENV{id_pestana, 1}}
+	]
+</BOUCLE_parlamentario_01>
+
+<div id="pestanas-y-paneles">
+<div id="lista-pestanas">
+<ul class="css-tabs">
+        <li>
+                <a class= "[(#GET{id_pestana}|=={1}|oui) on]" href="[(#URL_PAGE{parlamentarios}|parametre_url{id_parlamentario, 0}|parametre_url{'id_pestana',1})]"><:vice:senadores:></a>
+        </li>
+        <li>
+                <a class= "[(#GET{id_pestana}|=={2}|oui) on]" href="[(#URL_PAGE{parlamentarios}|parametre_url{id_parlamentario, 0}|parametre_url{'id_pestana',2})]"><:vice:diputados:></a>
+        </li>
+        <li>
+                <a class= "[(#GET{id_pestana}|=={3}|oui) on]" href="[(#URL_PAGE{parlamentarios}|parametre_url{id_parlamentario, 0}|parametre_url{'id_pestana',3})]"><:vice:bancadas:></a>
+        </li>
+        <li>
+                <a class= "[(#GET{id_pestana}|=={4}|oui) on]" href="[(#URL_PAGE{parlamentarios}|parametre_url{id_parlamentario, 0}|parametre_url{'id_pestana',4})]"><:vice:brigadas:></a>
+        </li>
+        <li>
+                <a class= "[(#GET{id_pestana}|=={5}|oui) on]" href="[(#URL_PAGE{parlamentarios}|parametre_url{id_parlamentario, 0}|parametre_url{'id_pestana',5})]"><:vice:comisiones:></a>
+        </li>
+        <li>
+                <a class= "[(#GET{id_pestana}|=={6}|oui) on]" href="[(#URL_PAGE{parlamentarios}|parametre_url{id_parlamentario, 0}|parametre_url{'id_pestana',6})]"><:vice:directiva:></a>
+        </li>
+</ul>
+</div><!-- #lista-pestanas -->
+<!-- Lista de sub-secciones (pestanas) -->
+<div id="panel-pestana">
+
+	<INCLURE{fond=inclure/inc-parlamentario, env, ajax}>
+
+</div><!-- #panel-pestana -->
+</div><!-- #pestanas-y-paneles -->
+

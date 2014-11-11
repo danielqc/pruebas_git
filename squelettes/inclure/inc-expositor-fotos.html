@@ -1,0 +1,10 @@
+<BOUCLE_expositor_01(EXPOSITORES){id_expositor}>
+
+        [(#REM) Nombre del expositor]
+        <h1>[(#NOMBRE) ]#APELLIDO</h1>
+
+        [(#REM) Gestion del portafolio y de los documentos ]
+        [(#INCLURE{fond=inclure/documents_expositor,id_expositor,env,ajax})]
+
+</BOUCLE_expositor_01>
+

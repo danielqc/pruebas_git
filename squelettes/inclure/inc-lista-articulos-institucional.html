@@ -1,0 +1,35 @@
+[(#REM)
+ * caso 1: id-rubrique=id-secteur -> mostramos la primera subseccion, por omision
+ * caso 2: id-rubrique!=id-secteur -> es una subseccion: mostramos solo los articulos de esta subseccion
+En todo caso, hay una pestana por sub-seccion, y ningun articulo en la seccion (o si hay, no los mostramos)
+]
+
+<B_articulos_02>
+	<div id="accordion">
+	#ANCRE_PAGINATION
+<BOUCLE_articulos_02(ARTICLES){branche?}{!par titre}{pagination 12}>
+
+        <INCLURE{fond=inclure/inc-resumen-articulo-institucional, env, id_article=#ID_ARTICLE}>
+
+</BOUCLE_articulos_02>
+	        <div class="accordion-paginacion pagination">
+        	        #PAGINATION{precedent_suivant}
+	        </div><!-- .accordion-paginacion -->
+	</div><!-- #accordion -->
+</B_articulos_02>
+	<p><:vice:ningun_seminario:></p>
+<//B_articulos_02>
+
+<!-- activate tabs with JavaScript -->
+<script type="text/javascript">
+$(document).ready(function () {
+$("#accordion").tabs(
+	"#accordion div.accordion-panel", {
+		tabs: 'div.accordion-titulo', 
+		effect: 'toggle', 
+		initialIndex: null
+	}
+);
+});
+</script>
+

@@ -1,0 +1,131 @@
+#SET{lista_partidos, #ARRAY}
+<BOUCLE_partidos_01(atlas_electoral:elec_partidos){pseudo_partido=false}{par sigla}>
+	#SET_MERGE{lista_partidos, #ARRAY{#SIGLA, #ID_PARTIDO}}
+</BOUCLE_partidos_01>
+[(#SET{lista_partidos, #GET{lista_partidos}|array_flip})]
+
+#SET{lista_departamentos, #ARRAY}
+<BOUCLE_departamentos_02(atlas_electoral:geo_departamentos){par codigo}>
+	#SET_MERGE{lista_departamentos, #ARRAY{#NOMBRE,#ID_DEPARTAMENTO}}
+</BOUCLE_departamentos_02>
+[(#SET{lista_departamentos, #GET{lista_departamentos}|array_flip})]
+
+[(#SET{lista_titular, #ARRAY})]
+[(#SET{ tmp, [(#EVAL{0}|cadena_titular)]})]
+[(#SET_MERGE{lista_titular, #ARRAY{#GET{tmp}, 0}})]
+[(#SET{ tmp, [(#EVAL{1}|cadena_titular)]})]
+[(#SET_MERGE{lista_titular, #ARRAY{#GET{tmp}, 1}})]
+[(#SET{lista_titular, #GET{lista_titular}|array_flip})]
+
+[(#SET{texto_sin_suplente, #VAL{"asamblea:label_ningun_suplente"}|_T})]
+[(#SET{lista_suplentes, #ARRAY{#GET{texto_sin_suplente}, 0}})]
+<BOUCLE_suplentes_025(PARLAMENTARIOS){id_titular=0}{par apellido}>
+	#SET_MERGE{lista_suplentes, #ARRAY{#APELLIDO (#NOMBRE), #ID_PARLAMENTARIO}}
+</BOUCLE_suplentes_025>
+[(#SET{lista_suplentes, #GET{lista_suplentes}|array_flip})]
+
+[(#SET{lista_circunscripcion, #ARRAY})]
+[(#SET{ tmp, [(#EVAL{-3}|cadena_circunscripcion)]})]
+[(#SET_MERGE{lista_circunscripcion, #ARRAY{#GET{tmp}, -3}})]
+[(#SET{ tmp, [(#EVAL{-2}|cadena_circunscripcion)]})]
+[(#SET_MERGE{lista_circunscripcion, #ARRAY{#GET{tmp}, -2}})]
+[(#SET{ tmp, [(#EVAL{-1}|cadena_circunscripcion)]})]
+[(#SET_MERGE{lista_circunscripcion, #ARRAY{#GET{tmp}, -1}})]
+<BOUCLE_circunscripciones_03(atlas_electoral:geo_circunscripciones){par codigo}>
+	[(#SET{ tmp, [(#CODIGO|cadena_circunscripcion)]})]
+	[(#SET_MERGE{lista_circunscripcion, #ARRAY{#GET{tmp},#ID_CIRCUNSCRIPCION}})]
+</BOUCLE_circunscripciones_03>
+[(#SET{lista_circunscripcion, #GET{lista_circunscripcion}|array_flip})]
+
+[(#SET{texto_sin_comision, #VAL{"asamblea:label_ninguna_comision"}|_T})]
+[(#SET{lista_comision, #ARRAY{#GET{texto_sin_comision}, 0}})]
+<BOUCLE_comisiones_04(COMISIONES){par titre}>
+	#SET_MERGE{lista_comision, #ARRAY{#TITRE, #ID_COMISION}}
+</BOUCLE_comisiones_04>
+[(#SET{lista_comision, #GET{lista_comision}|array_flip})]
+
+[(#SET{texto_sin_directiva, #VAL{"asamblea:label_ninguna_directiva"}|_T})]
+[(#SET{lista_directiva, #ARRAY{#GET{texto_sin_directiva}, 0}})]
+<BOUCLE_directivas_05(DIRECTIVAS){par titre}>
+	#SET_MERGE{lista_directiva, #ARRAY{#TITRE, #ID_DIRECTIVA}}
+</BOUCLE_directivas_05>
+[(#SET{lista_directiva, #GET{lista_directiva}|array_flip})]
+
+
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_parlamentario,nouveau}'>
+	
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable}|oui)
+	<form method='post' action='#ENV{action}'><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_parlamentario' value='#ENV{id_parlamentario}' />
+		<ul>
+		[(#SAISIE{input, nombre,
+			label=<:asamblea:label_nombre:>,
+			obligatoire=oui})]
+
+		[(#SAISIE{input, apellido,
+			label=<:asamblea:label_apellido:>,
+			obligatoire=oui})]
+
+		[(#SAISIE{input, fecha_nacimiento,
+			label=<:asamblea:label_fecha_nacimiento:>,
+			obligatoire=non})]
+
+		[(#SAISIE{input, domicilio,
+			label=<:asamblea:label_domicilio:>,
+			obligatoire=non})]
+
+		[(#SAISIE{input, celular,
+			label=<:asamblea:label_celular:>,
+			obligatoire=non})]
+
+		[(#SAISIE{selection, id_partido,
+			label=<:asamblea:label_partido:>,
+			datas=#GET{lista_partidos},
+			obligatoire=oui})]
+
+		[(#SAISIE{selection, id_departamento,
+			label=<:asamblea:label_departamento:>,
+			datas=#GET{lista_departamentos},
+			obligatoire=oui})]
+
+		[(#SAISIE{selection, id_titular,
+			label=<:asamblea:label_titular:>,
+			datas=#GET{lista_titular},
+			obligatoire=oui})]
+
+		[(#SAISIE{selection, id_suplente,
+			label=<:asamblea:label_suplente:>,
+			datas=#GET{lista_suplentes},
+			obligatoire=non})]
+
+		[(#SAISIE{selection, id_circunscripcion,
+			label=<:asamblea:label_circunscripcion:>,
+			datas=#GET{lista_circunscripcion},
+			obligatoire=oui})]
+
+		[(#SAISIE{selection, id_comision,
+			label=<:asamblea:label_parlametario_comision:>,
+			datas=#GET{lista_comision},
+			obligatoire=non})]
+
+		[(#SAISIE{selection, id_directiva,
+			label=<:asamblea:label_parlametario_directiva:>,
+			datas=#GET{lista_directiva},
+			obligatoire=non})]
+
+		[(#SAISIE{textarea, actividades,
+			label=<:asamblea:label_actividades:>,
+			class='inserer_barre_edition inserer_previsualisation',
+			explication=<:asamblea:explicacion_actividades:>,
+			obligatoire=non})]
+		</ul>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+	</div></form>
+	]
+</div>

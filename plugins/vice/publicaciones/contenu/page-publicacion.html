@@ -1,0 +1,50 @@
+[(#REM) Esqueleto para una publicacion]
+<BOUCLE_publicacion_01(PUBLICACIONES){id_publicacion}>
+	<a href="#URL_PAGE{publicaciones}"><:publicaciones:volver_a_las_publicaciones:></a>
+
+	[(#REM) Titulo de la publicacion]
+	<h1>#TITULO</h1>
+
+	[(#REM) Tipo de publicacion (palabra-clave)]
+	<B_palabraclave_01>
+		<h2><:publicaciones:tipo_publicacion:></h2>
+	<BOUCLE_palabraclave_01(MOTS){id_publicacion}{0,1}>
+		<p><a href="[(#URL_PAGE{publicaciones}|parametre_url{'id_mot',#ID_MOT})]">#TITRE</a>[ - (#DESCRIPTIF|PTOBR)]</p>
+	</BOUCLE_palabraclave_01>
+
+	[(#REM) Autores de la publicacion]
+	<B_autores>
+		<h2><:expositores:autores:></h2>
+	<ul>
+	<BOUCLE_autores(EXPOSITORES){tous}{id_expositor IN (#_publicacion_01:EXPOSITORES|explode{","})}>
+		<li><a href="[(#URL_PAGE{expositor}|parametre_url{id_expositor, #ID_EXPOSITOR})]">#NOMBRE #APELLIDO</a></li>
+	</BOUCLE_autores>
+	</ul>
+	</B_autores>
+
+	[(#REM) Editorial de la publicacion]
+	<B_editorial>
+		<h2><:editoriales:editorial:></h2>
+	<p>
+	<BOUCLE_editorial(EDITORIALES){tous}{id_editorial=#_publicaciones_01:EDITORIAL}{0,1}>
+		<a href="[(#URL_PAGE{editorial}|parametre_url{id_editorial,#ID_EDITORIAL})]">#NOMBRE, #LUGAR</a>
+	</BOUCLE_editorial>	
+	</p>
+	</B_editorial>
+
+	[(#REM) Mes y Ano de publicacion]
+	[(#ANO|!={0|}oui)
+	<h2><:publicaciones:fecha:></h2>
+	<p>[(#MES|!={0}|oui)#MES ]#ANO</p>
+	]
+
+	[(#REM) Descripcion de la publicacion]
+	[(#DESCRIPCION|oui)
+	<h2><:publicaciones:label_descripcion:></h2>
+	<p>#DESCRIPCION</p>
+	]
+
+        [(#REM) Gestion del portafolio y de los documentos ]
+        [(#INCLURE{fond=inclure/documents_publicacion}{id_publicacion})]
+
+</BOUCLE_publicacion_01>

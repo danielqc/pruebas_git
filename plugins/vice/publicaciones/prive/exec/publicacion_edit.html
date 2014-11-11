@@ -1,0 +1,25 @@
+#CACHE{0}
+[(#SET{id_publicacion,[(#VAL{id_publicacion}|_request|sinon{new})]})]
+<BOUCLE_si_autorise(CONDITION){si (#AUTORISER{modifier,publicacion,#GET{id_publicacion}})}>
+	[(#SET{retour, #URL_ECRIRE{publicaciones}})]
+	<BOUCLE_titre(PUBLICACIONES){id_publicacion=#GET{id_publicacion}}{tout}>
+		[(#SET{titre, #TITULO})]
+		[(#SET{retour, [(#URL_ECRIRE{publicacion_voir}|parametre_url{id_publicacion,#ID_PUBLICACION})]})]
+	</BOUCLE_titre>
+		
+        [(#REM) Advertencia si la publicacion fue editada hace menos de una hora por una otra persona]
+        [(#SET{mention, #ID_PUBLICACION|mention_qui_edite{'publicacion'}})]
+        [(#SET{nombre_autor, #GET{mention}|table_valeur{nom_auteur_modif}})]
+        [(#SET{minutos, #GET{mention}|table_valeur{date_diff}})]
+        [(#GET{mention}|oui)
+                <:publicaciones:aviso_publicacion_modificada{nom_auteur_modif=#GET{nombre_autor}, date_diff=#GET{minutos}}:>
+        ]
+
+	[(#INCLURE{fond=prive/editer/publicacion,
+		id_publicacion=#GET{id_publicacion},
+		icone_retour=[(#ENV{retour,#GET{retour}}
+			|icone{<:icone_retour:>, #CHEMIN{images/publicaciones-24.png}, #LANG_LEFT })],
+		titre=#GET{titre}
+	})]
+	
+</BOUCLE_si_autorise>

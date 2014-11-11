@@ -1,0 +1,33 @@
+<B_funcionarios>
+<table class='funcionarios spip'>
+	<thead>
+	<tr>
+		<th><:personal:label_id:></th>
+		<th><:personal:label_apellido:></th>
+		<th><:personal:label_nombre:></th>
+		<th><:personal:label_acciones:></td>
+	</tr>
+	</thead>
+	<tbody>
+<BOUCLE_funcionarios(FUNCIONARIOS){par apellido}{pagination 10}>
+	<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+		<td>#ID_FUNCIONARIO</td>
+		<td>#APELLIDO</td>
+		<td>#NOMBRE</td>
+		<td>
+			[(#AUTORISER{voir,funcionario,#ID_FUNCIONARIO})
+				<a href='[(#URL_ECRIRE{funcionario_voir}|parametre_url{id_funcionario,#ID_FUNCIONARIO})]'><:personal:accion_ver:></a>
+			]
+			[(#AUTORISER{modifier,funcionario,#ID_FUNCIONARIO})
+				|
+				<a href='[(#URL_ECRIRE{funcionario_edit}|parametre_url{id_funcionario,#ID_FUNCIONARIO})]'><:personal:accion_modificar:></a>
+				|
+				<a href='[(#URL_ACTION_AUTEUR{supprimer_funcionario,#ID_FUNCIONARIO,#SELF})]'><:personal:accion_suprimir:></a>
+			]
+		</td>
+	</tr>
+</BOUCLE_funcionarios>
+	</tbody>
+</table>
+[<p class='pagination'>(#PAGINATION)</p>]
+</B_funcionarios>

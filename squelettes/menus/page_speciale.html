@@ -1,0 +1,25 @@
+[(#ENV{titre}|oui)
+  #SET{titre, #ENV*{titre}|typo}
+]
+
+[(#ENV{appel_formulaire}|oui)
+  <div class="titre">#GET{titre}</div>
+  <div class="infos"><:menus:info_page_speciale{page=#ENV{nom}}:></div>
+]
+[(#REM) Hack feo para que los expositores no se vean como el Vice-presidente (diferencia en el parametro id_expositor]
+<BOUCLE_test_expositor_01(CONDITION){si #GET{titre}|=={Vicepresidente}}>
+	#SET{id_expositor_vice,10}
+	[(#ENV{appel_menu}|oui)
+	  <li class="menu-entree[ (#ENV{css})]
+		[(#ENV{env}|table_valeur{type}|=={page}
+		|et{#ENV{env}|table_valeur{composition}|=={#ENV{nom}}}
+		|et{#ENV{env}|table_valeur{id_expositor}|=={#GET{id_expositor_vice}}}
+		) on]">
+	    <a href="#URL_PAGE{#ENV{nom}, #ENV{parametres}}" title="[(#GET{titre}|attribut_html)]">#GET{titre}</a>
+	]
+</BOUCLE_test_expositor_01>
+	[(#ENV{appel_menu}|oui)
+	  <li class="menu-entree[ (#ENV{css})][(#ENV{env}|table_valeur{type}|=={page}|et{#ENV{env}|table_valeur{composition}|=={#ENV{nom}}}) on]">
+	    <a href="#URL_PAGE{#ENV{nom}, #ENV{parametres}}" title="[(#GET{titre}|attribut_html)]">#GET{titre}</a>
+	]
+<//B_test_expositor_01>

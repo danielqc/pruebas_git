@@ -1,0 +1,48 @@
+<BOUCLE_noticia_01(ARTICLES){id_article}{0,1}>
+
+	<div class="noticia">
+		<B_imagenes>
+		<div class="noticia-imagen">
+	        <BOUCLE_imagenes(DOCUMENTS) {id_article} {mode=document}{extension IN png,jpg,gif} {par date}{vu=non}{0,1}>
+
+[(#REM)
+    Se supone que la imagen siempre mide mas de 240x320
+    La imagen resultante siempre tiene una altura de 320
+    Su anchura depende de la orientacion elegida, y vale
+    * 240 max si la orientacion es vertical
+    * 426 max si la orientacion es horizontal
+]  
+				
+				#SET{imagen,#FICHIER}				
+				#SET{imagen,#GET{imagen}
+					|image_passe_partout{735,437}
+									
+					}    				    								
+				[(#GET{imagen}
+					|inserer_attribut{class,spip_logos}
+					|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+	        </BOUCLE_imagenes>
+	       
+	   [(#REM) Se inserto 'noticia-texto' en 'noticia-imagen' 
+	   
+	   por la superposición del título de la noticia, también se modifico el css]
+	    <div class="noticia-texto">
+			<div class="wrapper">
+				<h3><a href="#URL_ARTICLE" style="color: #ffffff;line-height:1.4em;">#TITRE</a></h3>
+
+				[(#REM) Fecha, lugar, hora de actualizacion]
+		                <!--<p class="info-publi">
+		                        [(#LUGAR) - ]		                        
+		                        <abbr class="published" title="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</abbr>
+		                </p>-->
+				<!--[(#REM) Primeras frases de la noticia]
+				#INTRODUCTION -->
+			</div>
+		</div>       
+	        
+		</div><!-- .noticia-imagen -->
+		</B_imagenes>																																																																																															
+		<!--<a class="noticia-seguir" href="#URL_ARTICLE"><:zpip:lire_la_suite:></a>-->	
+		
+	</div><!-- .noticia -->
+</BOUCLE_noticia_01>

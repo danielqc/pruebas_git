@@ -1,0 +1,15 @@
+[(#REM) Esqueleto para un editorial]
+<BOUCLE_editorial_01(EDITORIALES){id_editorial}>
+	<a href="#URL_PAGE{editoriales}"><:editoriales:volver_a_los_editoriales:></a>
+
+	[(#REM) Nombre del editorial]
+	<h1>#NOMBRE</h1>
+
+	[(#REM) Lugar del editorial]
+	[<h2><:editoriales:label_lugar:></h2>
+	<p>(#LUGAR)</p>]
+
+        [(#REM) Gestion del portafolio y de los documentos ]
+        [(#INCLURE{fond=inclure/documents_editorial}{id_editorial})]
+
+</BOUCLE_editorial_01>

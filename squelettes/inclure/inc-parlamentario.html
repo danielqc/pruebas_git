@@ -1,0 +1,71 @@
+<div class="contenu-principal">
+[(#REM) Esqueleto para un parlamentario]
+<BOUCLE_parlamentarios_01(PARLAMENTARIOS){id_parlamentario}>
+	[(#REM) Partido]
+	#SET{partido, ""}
+	<BOUCLE_partido_012(atlas_electoral:elec_partidos){id_partido=#ID_PARTIDO}>
+		#SET{partido, #SIGLA}
+	</BOUCLE_partido_012>
+	[(#REM) Departamento]
+	#SET{departamento, ""}
+	<BOUCLE_departamento_012(atlas_electoral:geo_departamentos){id_departamento=#ID_DEPARTAMENTO}>
+		#SET{departamento, #NOMBRE}
+	</BOUCLE_departamento_012>
+
+
+        <INCLURE{fond=inclure/inc-primera-imagen-grande, env, id_parlamentario=#ID_PARLAMENTARIO}>
+
+	[(#REM) Nombre del parlamentario]
+	<h1>#NOMBRE #APELLIDO</h1>
+
+	[(#REM) Tipo de parlamentario]
+	[(#ID_CIRCUNSCRIPCION|cadena_circunscripcion)][(#ID_TITULAR|=={0}|oui) (<:asemblea:suplente:>)]&nbsp;<:asemblea:de:>&nbsp;#GET{partido}&nbsp;<:asemblea:para_el_departamento_de:>&nbsp;#GET{departamento}
+
+	[(#REM) Detalles]
+	<ul>
+		[<li><strong><:asamblea:label_fecha_nacimiento:>:</strong><span> (#FECHA_NACIMIENTO)</span></li>]
+		[<li><strong><:asamblea:label_domicilio:>:</strong><span> (#DOMICILIO)</span></li>]
+		[<li><strong><:asamblea:label_celular:>:</strong><span> (#CELULAR)</span></li>]
+
+		[(#REM) caso 1: es un titular]
+		<BOUCLE_test_titular_013(CONDITION){si #ID_TITULAR|=={1}}>
+			<BOUCLE_suplente_0131(PARLAMENTARIOS){id_parlamentario=#ID_SUPLENTE}{0,1}>
+				<li><strong><:asamblea:label_suplente:>:</strong><span> 
+					<a href="[(#URL_PAGE{parlamentario}|parametre_url{'id_parlamentario',#ID_PARLAMENTARIO})]">
+						#NOMBRE #APELLIDO
+					</a>
+				</span></li>
+			</BOUCLE_suplente_0131>
+		</BOUCLE_test_titular_013>
+			<BOUCLE_titular_0132(PARLAMENTARIOS){id_suplente=#ID_PARLAMENTARIO}{0,1}>
+				<li><strong><:asamblea:label_suplente_de:>:</strong><span> 
+					<a href="[(#URL_PAGE{parlamentario}|parametre_url{'id_parlamentario',#ID_PARLAMENTARIO})]">
+						#NOMBRE #APELLIDO
+					</a>
+				</span></li>
+			</BOUCLE_titular_0132>
+		<//B_test_titular_013>
+
+		[(#REM) miembro de una comision ?]
+		<BOUCLE_comision_014(COMISIONES){id_comision=#ID_COMISION}{0,1}>
+			<li><strong><:asamblea:label_parlamentario_comision:>:</strong><span> 
+				#_comision_014:TITRE
+			</span></li>
+		</BOUCLE_comision_014>
+
+		[(#REM) miembro de la directiva ?]
+		<BOUCLE_directiva_015(DIRECTIVAS){id_directiva=#ID_DIRECTIVA}{0,1}>
+			<li><strong><:asamblea:label_parlamentario_directiva:>:</strong><span> 
+				#_directiva_015:TITRE
+			</span></li>
+		</BOUCLE_directiva_015>
+	</ul>
+
+	[<h3><:asamblea:label_actividades:></h3>
+	(#ACTIVIDADES)]
+
+        [(#REM) Gestion del portafolio y de los documentos ]
+        [(#INCLURE{fond=inclure/documents,id_parlamentario})]
+
+</BOUCLE_parlamentarios_01>
+</div><!-- .contenu-principal -->

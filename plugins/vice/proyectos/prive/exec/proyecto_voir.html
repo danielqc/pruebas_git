@@ -1,0 +1,35 @@
+<BOUCLE_si_autorise(CONDITION){si (#ID_PROYECTO|intval|et{#AUTORISER{voir,proyecto,#ID_PROYECTO}})}>
+<BOUCLE_proyecto(PROYECTOS){id_proyecto}{tout}>
+<div class='fiche_objet'>
+	[(#AUTORISER{modifier,proyecto,#ID_PROYECTO})
+		<div class='bandeau_actions'>
+			[(#URL_ECRIRE{proyecto_edit}
+				|parametre_url{id_proyecto,#ID_PROYECTO}
+				|parametre_url{retour,#SELF}
+				|icone{<:proyectos:accion_modificar:>, #CHEMIN{images/proyectos-24.png}, #LANG_RIGHT, edit.gif})]
+		</div>
+	]
+	<h1>#TITULO</h1>
+	<div id='wysiwyg'>
+		[(#PIPELINE{afficher_contenu_objet,[(#ARRAY{
+			args,[(#ARRAY{
+				type,proyecto,
+				id_objet,#ID_PROYECTO,
+				contexte,[(#ARRAY{
+					id_proyecto,#ID_PROYECTO})]})],
+			data,[(#INCLURE{fond=prive/contenu/proyecto,id=#ID_PROYECTO})]})]})]
+	</div>
+</div>
+<INCLURE{fond=prive/contenu/portfolio_document,objet=proyecto,id_objet=#ID_PROYECTO}>
+<!--#navigation-->
+[(#REM) Ce pipeline charge prive/infos/$type ]
+[<div class='cadre cadre-info'>
+	(#PIPELINE{boite_infos,[(#ARRAY{
+		args,[(#ARRAY{
+			type,proyecto,
+			id,#ID_PROYECTO})],
+		data,''})]})
+</div>]
+<!--/#navigation-->
+</BOUCLE_proyecto>
+</BOUCLE_si_autorise>

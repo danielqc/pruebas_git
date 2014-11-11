@@ -1,0 +1,31 @@
+<B_publicaciones>
+<table class='publicaciones spip'>
+	<thead>
+	<tr>
+		<th><:publicaciones:label_id:></th>
+		<th><:publicaciones:label_titulo:></th>
+		<th><:publicaciones:label_acciones:></td>
+	</tr>
+	</thead>
+	<tbody>
+<BOUCLE_publicaciones(PUBLICACIONES){par titulo}{pagination 10}>
+	<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+		<td>#ID_PUBLICACION</td>
+		<td>#TITULO</td>
+		<td>
+			[(#AUTORISER{voir,publicacion,#ID_PUBLICACION})
+				<a href='[(#URL_ECRIRE{publicacion_voir}|parametre_url{id_publicacion,#ID_PUBLICACION})]'><:publicaciones:accion_ver:></a>
+			]
+			[(#AUTORISER{modifier,publicacion,#ID_PUBLICACION})
+				|
+				<a href='[(#URL_ECRIRE{publicacion_edit}|parametre_url{id_publicacion,#ID_PUBLICACION})]'><:publicaciones:accion_modificar:></a>
+				|
+				<a href='[(#URL_ACTION_AUTEUR{supprimer_publicacion,#ID_PUBLICACION,#SELF})]'><:publicaciones:accion_suprimir:></a>
+			]
+		</td>
+	</tr>
+</BOUCLE_publicaciones>
+	</tbody>
+</table>
+[<p class='pagination'>(#PAGINATION)</p>]
+</B_publicaciones>

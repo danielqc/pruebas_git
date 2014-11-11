@@ -1,0 +1,34 @@
+<BOUCLE_si_autorise(CONDITION){si (#ID_COMISION|intval|et{#AUTORISER{voir,comision,#ID_COMISION}})}>
+<BOUCLE_comision(COMISIONES){id_comision}{tout}>
+<div class='fiche_objet'>
+	[(#AUTORISER{modifier,comision,#ID_COMISION})
+		<div class='bandeau_actions'>
+			[(#URL_ECRIRE{comision_edit}
+				|parametre_url{id_comision,#ID_COMISION}
+				|parametre_url{retour,#SELF}
+				|icone{<:asamblea:accion_modificar:>, #CHEMIN{images/comisiones-24.png}, #LANG_RIGHT, edit.gif})]
+		</div>
+	]
+	<h1>#TITRE</h1>
+	<div id='wysiwyg'>
+		[(#PIPELINE{afficher_contenu_objet,[(#ARRAY{
+			args,[(#ARRAY{
+				type,comision,
+				id_objet,#ID_COMISION,
+				contexte,[(#ARRAY{
+					id_comision,#ID_COMISION})]})],
+			data,[(#INCLURE{fond=prive/contenu/comision,id=#ID_COMISION})]})]})]
+	</div>
+</div>
+<!--#navigation-->
+[(#REM) Ce pipeline charge prive/infos/$type ]
+[<div class='cadre cadre-info'>
+	(#PIPELINE{boite_infos,[(#ARRAY{
+		args,[(#ARRAY{
+			type,comision,
+			id,#ID_COMISION})],
+		data,''})]})
+</div>]
+<!--/#navigation-->
+</BOUCLE_comision>
+</BOUCLE_si_autorise>

@@ -1,0 +1,21 @@
+<BOUCLE_expositores_02(EXPOSITORES){id_expositor}>
+	<a href="[(#URL_PAGE{expositor}|parametre_url{id_expositor, #ID_EXPOSITOR})]">
+        <div class="accordion-titulo clearfix">
+        <INCLURE{fond=inclure/inc-primera-imagen-icono, id_expositor=#ID_EXPOSITOR}>
+	<span>
+		<span class="titulo">#NOMBRE #APELLIDO</span>
+	</span>
+        </div><!-- .accordion-titulo -->
+	</a>
+        <div class="accordion-panel expositor">
+                <INCLURE{fond=inclure/inc-primera-imagen-grande, id_expositor=#ID_EXPOSITOR}>
+		<ul>
+			<li class="expositor-detalle"><strong><:expositores:label_nombre:>:&nbsp;</strong>#NOMBRE #APELLIDO</li>
+			[<li class="expositor-detalle"><strong><:expositores:label_biografia:>:&nbsp;</strong>(#BIOGRAFIA|couper{200})</li>]
+		</ul>
+		<div class="expositor-vinculo">
+			<a href="[(#URL_PAGE{expositor}|parametre_url{id_expositor, #ID_EXPOSITOR})]"><:expositores:ver_el_expositor:></a>
+		</div>
+		<div class="nettoyeur"></div>
+        </div><!-- .accordion-panel -->
+</BOUCLE_expositores_02>

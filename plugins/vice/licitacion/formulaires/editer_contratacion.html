@@ -1,0 +1,79 @@
+<link rel="stylesheet" type="text/css" href="#CHEMIN{css/jquery-ui-1.7.2.custom.css}" />
+#INSERT_HEAD_CSS
+
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_contratacion,nouveau}'>
+	
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable}|oui)
+	<form method='post' action='#ENV{action}'>
+		<div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type='hidden' name='id_contratacion' value='#ENV{id_contratacion}' />
+		<ul>
+		[(#SAISIE{input, num_convocatoria,
+			label=<:licitacion:label_num_convocatoria:>,
+			obligatoire=oui})]
+
+		[(#SAISIE{input, concepto_convocatoria,
+			label=<:licitacion:label_concepto_convocatoria:>,
+			obligatoire=oui})]
+			
+		<li class="editer editer_fecha_pub_sicoes obligatoire saisie_input">
+			<label for="champ_fecha_pub_sicoes"><:licitacion:label_f_pub_sicoes:><span class="obligatoire"> <:licitacion:label_obligatorio:></span></label>
+			<input type="text" name="fecha_pub_sicoes" id="fecha_pub_sicoes" readonly="readonly" size="20" />	
+		</li>
+		
+		<li class="editer editer_fecha_pres_prop obligatoire saisie_input">
+			<label for="champ_fecha_pres_prop"><:licitacion:label_f_pres_prop:><span class="obligatoire"> <:licitacion:label_obligatorio:></span></label>
+			<input type="text" name="fecha_pres_prop" id="fecha_pres_prop" readonly="readonly" size="20" />	
+		</li>	
+			
+		<li class="editer editer_hora_pres_prop obligatoire saisie_input">
+			<label for="champ_hora_pres_prop"><:licitacion:label_h_pres_prop:><span class="obligatoire"> <:licitacion:label_obligatorio:></span></label>
+			<input type="text" name="hora_pres_prop" id="hora_pres_prop" size="20" />	
+		</li>
+
+		</ul>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+		</div>
+	</form>
+	]
+</div>
+<!--script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script-->
+<script type="text/javascript" src="#CHEMIN{js/jquery-ui.min.js}"></script>
+<script type="text/javascript">
+
+jQuery(function($){
+      $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '&#x3c;Ant',
+            nextText: 'Sig&#x3e;',
+            currentText: 'Hoy',
+            monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+            'Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''};
+      $.datepicker.setDefaults($.datepicker.regional['es']);
+});   
+$(document).ready(function() {
+   $("#fecha_pub_sicoes").datepicker();
+});
+
+$(document).ready(function() {
+   $("#fecha_pres_prop").datepicker();
+});
+
+</script>

@@ -1,0 +1,13 @@
+[(#REM) Esqueleto para las fuentes]
+
+<h1><:fuentes:fuentes:></h1>
+<B_fuentes_01>
+<ul>
+<BOUCLE_fuentes_01(FUENTES)>
+	<li>
+		[(#REM) Nombre de la fuente]
+		<span><a href="[(#URL_PAGE{fuente}|parametre_url{id_fuente,#ID_FUENTE})]">#NOMBRE</a></span>
+	</li>
+</BOUCLE_fuentes_01>
+</ul>
+</B_fuentes_01>

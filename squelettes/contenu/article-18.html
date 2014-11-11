@@ -1,0 +1,40 @@
+[(#REM) Esqueleto para los parlamentarios]
+
+#SET{id_rubrique_asamblea, 18}
+#SET{id_article, #ENV{id_article}}
+#SET{id_pestana, #ENV{id_pestana, -1}}
+<div id="pestanas-y-paneles">
+<div id="lista-pestanas">
+<ul class="css-tabs">
+	<BOUCLE_articulos_01(ARTICLES){id_rubrique=#GET{id_rubrique_asamblea}}{!par date}{0,1}>
+	[(#GET{id_article}|non) #SET{id_article, #ID_ARTICLE}]
+        <li>
+                <a class="ajax [(#GET{id_pestana}|=={-1}|oui) on]" href="[(#URL_ARTICLE|parametre_url{'id_pestana', -1})]">#TITRE</a>
+        </li>
+	</BOUCLE_articulos_01>
+        <li>
+                <a class= "ajax [(#GET{id_pestana}|=={1}|oui) on]" href="[(#SELF|parametre_url{'id_pestana',1})]"><:vice:senadores:></a>
+        </li>
+        <li>
+                <a class= "ajax [(#GET{id_pestana}|=={2}|oui) on]" href="[(#SELF|parametre_url{'id_pestana',2})]"><:vice:diputados:></a>
+        </li>
+        <li>
+                <a class= "ajax [(#GET{id_pestana}|=={3}|oui) on]" href="[(#SELF|parametre_url{'id_pestana',3})]"><:vice:bancadas:></a>
+        </li>
+        <li>
+                <a class= "ajax [(#GET{id_pestana}|=={4}|oui) on]" href="[(#SELF|parametre_url{'id_pestana',4})]"><:vice:brigadas:></a>
+        </li>
+</ul>
+</div><!-- #lista-pestanas -->
+<!-- Lista de sub-secciones (pestanas) -->
+<div id="panel-pestana">
+
+<BOUCLE_test_01(CONDITION){si #GET{id_pestana}|=={-1}}>
+	<INCLURE{fond=inclure/inc-articulo-institucional, env, ajax, id_article=#GET{id_article}}>
+</BOUCLE_test_01>
+	<INCLURE{fond=inclure/inc-lista-parlamentarios, env, ajax, id_pestana=#GET{id_pestana}}>
+<//B_test_01>
+
+</div><!-- #panel-pestana -->
+</div><!-- #pestanas-y-paneles -->
+

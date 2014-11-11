@@ -1,0 +1,38 @@
+[(#REM) Esqueleto para la seccion de seminarios y sus subsecciones]
+
+#SET{id_sector, 2}
+#SET{pestana, #ENV{pestana}}
+
+[(#REM)
+ * caso 1: id-rubrique=2 -> mostramos todos los seminarios (i.e. todos los articulos de todas las subsecciones)
+ * caso 2: id-rubrique!=2 -> es una subseccion: mostramos solo los articulos de esta subseccion
+En todo caso, hay una pestana Todos para la seccion 2, y una pestana por sub-seccion
+]
+<div id="pestanas-y-paneles">
+<div id="lista-pestanas">
+<ul class="css-tabs">
+        <li>
+                <a [(#ENV{id_rubrique}|=={#GET{id_sector}}|et{#GET{pestana}|=={youtube}|non}|oui) class="on"] href="#URL_RUBRIQUE{#ID_SECTEUR}"><:vice:todos:></a>
+        </li>
+<BOUCLE_subsecciones_01(RUBRIQUES){id_parent=#GET{id_sector}}{par num titre}>
+        <li>
+                <a [(#ENV{id_rubrique}|=={#ID_RUBRIQUE}|oui) class="on"] href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+        </li>
+</BOUCLE_subsecciones_01>
+        <li>
+                <a [(#ENV{id_rubrique}|=={#GET{id_sector}}|et{#GET{pestana}|=={youtube}}|oui) class="on"] [href="(#URL_RUBRIQUE{#ID_SECTEUR}|parametre_url{pestana,youtube})"]><:vice:seminarios_youtube:></a>
+        </li>
+</ul>
+</div><!-- #lista-pestanas -->
+
+<!-- Lista de sub-secciones (pestanas) -->
+<div id="panel-pestana">
+
+    [(#GET{pestana}|=={youtube}|?{
+        <INCLURE{fond=inclure/inc-youtube-seminario, env, ajax}>
+    ,
+        <INCLURE{fond=inclure/inc-lista-seminarios, env, ajax}>
+	})]
+
+</div><!-- #panel-pestana -->
+</div><!-- #pestanas-y-paneles -->

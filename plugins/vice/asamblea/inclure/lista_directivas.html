@@ -1,0 +1,33 @@
+<B_directivas>
+<table class='directivas spip'>
+	<thead>
+	<tr>
+		<th><:asamblea:label_id:></th>
+		<th><:asamblea:label_directiva_orden_corto:></th>
+		<th><:asamblea:label_directiva_titre:></th>
+		<th><:asamblea:label_acciones:></td>
+	</tr>
+	</thead>
+	<tbody>
+<BOUCLE_directivas(DIRECTIVAS){par orden}{par titre}{pagination 10}>
+	<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+		<td>#ID_DIRECTIVA</td>
+		<td>#ORDEN</td>
+		<td>#TITRE</td>
+		<td>
+			[(#AUTORISER{voir,directiva,#ID_DIRECTIVA})
+				<a href='[(#URL_ECRIRE{directiva_voir}|parametre_url{id_directiva,#ID_DIRECTIVA})]'><:asamblea:accion_ver:></a>
+			]
+			[(#AUTORISER{modifier,directiva,#ID_DIRECTIVA})
+				|
+				<a href='[(#URL_ECRIRE{directiva_edit}|parametre_url{id_directiva,#ID_DIRECTIVA})]'><:asamblea:accion_modificar:></a>
+				|
+				<a href='[(#URL_ACTION_AUTEUR{supprimer_directiva,#ID_DIRECTIVA,#SELF})]'><:asamblea:accion_suprimir:></a>
+			]
+		</td>
+	</tr>
+</BOUCLE_directivas>
+	</tbody>
+</table>
+[<p class='pagination'>(#PAGINATION)</p>]
+</B_directivas>

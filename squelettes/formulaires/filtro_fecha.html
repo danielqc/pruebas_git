@@ -1,0 +1,13 @@
+<div class="formulaire_spip formulaire_filtro_fecha">
+
+[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+
+<form action="#ENV{action}" method="post"><div>
+	#ACTION_FORMULAIRE{#ENV{action}}
+	<ul>
+		[(#SAISIE{date,archives})]
+	</ul>
+	<p class="boutons"><input type="submit" class="submit" value="Filtrar por fecha" /></p>
+</div></form>
+</div>

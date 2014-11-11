@@ -1,0 +1,14 @@
+<BOUCLE_afficher_contenu(PROYECTOS){id_proyecto=#ENV{id}}{tout}>
+<div class="champ contenu_titulo[ (#TITULO*|strlen|?{'',vide})]">
+	<div class='label'><:proyectos:label_titulo:></div>
+	<div dir='#LANG_DIR' class='#EDIT{titulo} titulo'>#TITULO</div>
+</div>
+<div class="champ contenu_ejecucion[ (#ID_EJECUCION*|strlen|?{'',vide})]">
+	<div class='label'><:proyectos:label_nivel_ejecucion:></div>
+	<div dir='#LANG_DIR' class='ejecucion'>[(#ID_EJECUCION|cadena_ejecucion)]</div>
+</div>
+<div class="champ contenu_descripcion[ (#DESCRIPCION*|strlen|?{'',vide})]">
+	<div class='label'><:proyectos:label_descripcion:></div>
+	<div dir='#LANG_DIR' class='#EDIT{descripcion} descripcion'>#DESCRIPCION</div>
+</div>
+</BOUCLE_afficher_contenu>

@@ -1,0 +1,32 @@
+[(#ENV{destacado}|oui)
+[(#SET{anchura, #ENV{anchura,60}})]
+[(#SET{altura, #ENV{altura,70}})]
+]
+[(#ENV{destacado}|non)
+[(#SET{anchura, #ENV{anchura,40}})]
+[(#SET{altura, #ENV{altura,50}})]
+]
+
+<BOUCLE_test_logo(CONDITION){si #LOGO_ARTICLE}>
+	<BOUCLE_articles(ARTICLES){id_article=#ENV{id_article}}>
+		[(#LOGO_ARTICLE
+			|image_passe_partout{#GET{anchura},#GET{altura}}
+			|image_recadre{#GET{anchura},#GET{altura},center}
+			|inserer_attribut{class,primera-imagen-icono}
+			|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+	</BOUCLE_articles>
+</BOUCLE_test_logo>
+	<BOUCLE_documents_portfolio(DOCUMENTS) {id_funcionario?} {id_publicacion?} {id_proyecto?} {id_article ?} {id_parlamentario?} {id_expositor?} {mode=document}{extension IN png,jpg,gif} {par num titre, date}{vu=non}{0,1}>
+		[(#FICHIER
+			|image_passe_partout{#GET{anchura},#GET{altura}}
+			|image_recadre{#GET{anchura},#GET{altura},center}
+			|inserer_attribut{class,primera-imagen-icono}
+			|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+	</BOUCLE_documents_portfolio>
+		[(#CHEMIN{images/icono_omision.jpg}
+			|image_passe_partout{#GET{anchura},#GET{altura}}
+			|image_recadre{#GET{anchura},#GET{altura},center}
+                        |inserer_attribut{class,primera-imagen-icono}
+                        |inserer_attribut{alt,[(#VAR{atlas:imagen_por_omision}|_T|attribut_html)]})]
+	<//B_documents_portfolio>
+<//B_test_logo>

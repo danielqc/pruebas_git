@@ -1,0 +1,35 @@
+<BOUCLE_si_autorise(CONDITION){si (#ID_PUBLICACION|intval|et{#AUTORISER{voir,publicacion,#ID_PUBLICACION}})}>
+<BOUCLE_publicacion(PUBLICACIONES){id_publicacion}{tout}>
+<div class='fiche_objet'>
+	[(#AUTORISER{modifier,publicacion,#ID_PUBLICACION})
+		<div class='bandeau_actions'>
+			[(#URL_ECRIRE{publicacion_edit}
+				|parametre_url{id_publicacion,#ID_PUBLICACION}
+				|parametre_url{retour,#SELF}
+				|icone{<:publicaciones:accion_modificar:>, #CHEMIN{images/publicaciones-24.png}, #LANG_RIGHT, edit.gif})]
+		</div>
+	]
+	<h1>#TITULO</h1>
+	<div id='wysiwyg'>
+		[(#PIPELINE{afficher_contenu_objet,[(#ARRAY{
+			args,[(#ARRAY{
+				type,publicacion,
+				id_objet,#ID_PUBLICACION,
+				contexte,[(#ARRAY{
+					id_publicacion,#ID_PUBLICACION})]})],
+			data,[(#INCLURE{fond=prive/contenu/publicacion,id=#ID_PUBLICACION})]})]})]
+	</div>
+</div>
+<INCLURE{fond=prive/contenu/portfolio_document,objet=publicacion,id_objet=#ID_PUBLICACION}>
+<!--#navigation-->
+[(#REM) Ce pipeline charge prive/infos/$type ]
+[<div class='cadre cadre-info'>
+	(#PIPELINE{boite_infos,[(#ARRAY{
+		args,[(#ARRAY{
+			type,publicacion,
+			id,#ID_PUBLICACION})],
+		data,''})]})
+</div>]
+<!--/#navigation-->
+</BOUCLE_publicacion>
+</BOUCLE_si_autorise>

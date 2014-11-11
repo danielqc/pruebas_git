@@ -1,0 +1,24 @@
+#CACHE{0}
+[(#SET{id_fuente,[(#VAL{id_fuente}|_request|sinon{new})]})]
+<BOUCLE_si_autorise(CONDITION){si (#AUTORISER{modifier,fuente,#GET{id_fuente}})}>
+	[(#SET{retour, #URL_ECRIRE{fuentes}})]
+	<BOUCLE_titre(FUENTES){id_fuente=#GET{id_fuente}}{tout}>
+		[(#SET{titre, #NOMBRE})]
+		[(#SET{retour, [(#URL_ECRIRE{fuente_voir}|parametre_url{id_fuente,#ID_FUENTE})]})]
+	</BOUCLE_titre>
+
+	[(#REM) Advertencia si el fuente fue editada hace menos de una hora por una otra persona]
+	[(#SET{mention, #ID_FUENTE|mention_qui_edite{'fuente'}})]
+	[(#SET{nombre_autor, #GET{mention}|table_valeur{nom_auteur_modif}})]
+	[(#SET{minutos, #GET{mention}|table_valeur{date_diff}})]
+	[(#GET{mention}|oui)
+		<:fuentes:aviso_fuente_modificada{nom_auteur_modif=#GET{nombre_autor}, date_diff=#GET{minutos}}:>
+	]
+
+	[(#INCLURE{fond=prive/editer/fuente,
+		id_fuente=#GET{id_fuente},
+		icone_retour=[(#ENV{retour,#GET{retour}}
+			|icone{<:icone_retour:>, #CHEMIN{images/fuentes-24.png}, #LANG_LEFT })],
+		titre=#GET{titre}
+	})]
+</BOUCLE_si_autorise>

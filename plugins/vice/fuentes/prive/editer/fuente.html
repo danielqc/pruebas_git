@@ -1,0 +1,8 @@
+<div class='cadre-formulaire-editer'>
+<div class="entete-formulaire">
+	#ENV**{icone_retour}
+	[<:fuentes:info_modificar_fuente:>
+	<h1>(#ENV{titre,<:fuentes:texto_nueva_fuente:>})</h1>]
+</div>
+#FORMULAIRE_EDITER_FUENTE{#ENV{id_fuente,new},#ENV{redirect,#URL_ECRIRE{fuente_voir}}}
+</div>

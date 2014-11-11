@@ -1,0 +1,8 @@
+<div class='cadre-formulaire-editer'>
+<div class="entete-formulaire">
+	#ENV**{icone_retour}
+	[<:proyectos:info_modificar_proyecto:>
+	<h1>(#ENV{titre,<:proyectos:texto_nuevo_proyecto:>})</h1>]
+</div>
+#FORMULAIRE_EDITER_PROYECTO{#ENV{id_proyecto,new},#ENV{redirect,#URL_ECRIRE{proyecto_voir}}}
+</div>
